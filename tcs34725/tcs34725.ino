@@ -7,12 +7,17 @@
    Connect SDA    to analog 4
    Connect VDD    to 3.3V DC
    Connect GROUND to common ground */
-   
+
+// INITIALIZE ADAFRUIT COLOR SENSOR PARAMETERS
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 // Adafruit_TCS34725 tcs = Adafruit_TCS34725();
-
 /* Initialise with specific int time and gain values */
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X);
+
+
+// INITIALIZE LED LIGHT SOURCE
+int LED_PIN = 13;
+
 
 
 void getColorReading(){
@@ -52,10 +57,18 @@ void setup(void) {
     Serial.println("No TCS34725 found ... check your connections");
     while (1);
   }
+  // turn on led
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, HIGH);   
 
+  // get color reading
   getColorReading();
+
+  // turn off led
+  digitalWrite(LED_PIN, LOW);   
   
 }
+
 
 void loop(void) {
   /*

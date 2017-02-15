@@ -87,8 +87,6 @@ ylabel('C value')
 title('Clear Channel Readings')
 legend('1ppm','10ppm','20ppm','30ppm','40ppm','control')
 
-print('readingVsTime','-dpng')
-
 
 %% calculate average reading for each sample over 100 measurements
 
@@ -97,65 +95,65 @@ R_1ppm = mean(Rvec_1ppm);
 errorR_1ppm = std(Rvec_1ppm);
 
 G_1ppm = mean(Gvec_1ppm);
-errorG_1ppm = std(Cvec_1ppm);
+errorG_1ppm = std(Bvec_1ppm);
 
 B_1ppm = mean(Bvec_1ppm);
 errorB_1ppm = std(Bvec_1ppm);
 
-C_1ppm = mean(Cvec_1ppm);
-errorC_1ppm = std(Cvec_1ppm);
+C_1ppm = mean(Rvec_1ppm);
+errorR_1ppm = std(Rvec_1ppm);
 
 % sample 10ppm
 R_10ppm = mean(Rvec_10ppm);
 errorR_10ppm = std(Rvec_10ppm);
 
 G_10ppm = mean(Gvec_10ppm);
-errorG_10ppm = std(Gvec_10ppm);
+errorG_10ppm = std(Bvec_10ppm);
 
 B_10ppm = mean(Bvec_10ppm);
 errorB_10ppm = std(Bvec_10ppm);
 
-C_10ppm = mean(Cvec_10ppm);
-errorC_10ppm = std(Cvec_10ppm);
+C_10ppm = mean(Rvec_10ppm);
+errorR_10ppm = std(Rvec_10ppm);
 
 % sample 20ppm
 R_20ppm = mean(Rvec_20ppm);
 errorR_20ppm = std(Rvec_20ppm);
 
 G_20ppm = mean(Gvec_20ppm);
-errorG_20ppm = std(Gvec_20ppm);
+errorG_20ppm = std(Bvec_20ppm);
 
 B_20ppm = mean(Bvec_20ppm);
 errorB_20ppm = std(Bvec_20ppm);
 
-C_20ppm = mean(Cvec_20ppm);
-errorC_20ppm = std(Cvec_20ppm);
+C_20ppm = mean(Rvec_20ppm);
+errorR_20ppm = std(Rvec_20ppm);
 
 % sample 30ppm
 R_30ppm = mean(Rvec_30ppm);
 errorR_30ppm = std(Rvec_30ppm);
 
 G_30ppm = mean(Gvec_30ppm);
-errorG_30ppm = std(Gvec_30ppm);
+errorG_30ppm = std(Bvec_30ppm);
 
 B_30ppm = mean(Bvec_30ppm);
 errorB_30ppm = std(Bvec_30ppm);
 
-C_30ppm = mean(Cvec_30ppm);
-errorC_30ppm = std(Cvec_30ppm);
+C_30ppm = mean(Rvec_30ppm);
+errorR_30ppm = std(Rvec_30ppm);
 
 % sample 40ppm
 R_40ppm = mean(Rvec_40ppm);
 errorR_40ppm = std(Rvec_40ppm);
 
 G_40ppm = mean(Gvec_40ppm);
-errorG_40ppm = std(Gvec_40ppm);
+errorG_40ppm = std(Bvec_40ppm);
 
 B_40ppm = mean(Bvec_40ppm);
 errorB_40ppm = std(Bvec_40ppm);
 
-C_40ppm = mean(Cvec_40ppm);
-errorC_40ppm = std(Cvec_40ppm);
+C_40ppm = mean(Rvec_40ppm);
+errorR_40ppm = std(Rvec_40ppm);
 
 
 % sample control
@@ -163,48 +161,14 @@ R_control = mean(Rvec_control);
 errorR_control = std(Rvec_control);
 
 G_control = mean(Gvec_control);
-errorG_control = std(Gvec_control);
+errorG_control = std(Bvec_control);
 
 B_control = mean(Bvec_control);
 errorB_control = std(Bvec_control);
 
-C_control = mean(Cvec_control);
-errorC_control = std(Cvec_control);
-
-%% plot channels
-conc = [0 1 10 20 30 40];
-R = [R_control, R_1ppm, R_10ppm, R_20ppm, R_30ppm, R_40ppm];
-errorR = [errorR_control, errorR_1ppm, errorR_10ppm, errorR_20ppm, errorR_30ppm, errorR_40ppm];
-G = [G_control, G_1ppm, G_10ppm, G_20ppm, G_30ppm, G_40ppm];
-errorG = [errorG_control, errorG_1ppm, errorG_10ppm, errorG_20ppm, errorG_30ppm, errorG_40ppm];
-B = [B_control, B_1ppm, B_10ppm, B_20ppm, B_30ppm, B_40ppm];
-errorB = [errorB_control, errorB_1ppm, errorB_10ppm, errorB_20ppm, errorB_30ppm, errorB_40ppm];
-C = [C_control, C_1ppm, C_10ppm, C_20ppm, C_30ppm, C_40ppm];
-errorC = [errorC_control, errorC_1ppm, errorC_10ppm, errorC_20ppm, errorC_30ppm, errorC_40ppm];
-
-figure
-subplot(2,2,1)
-errorbar(conc,R,errorR,'ro-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Red Channel')
-subplot(2,2,2)
-errorbar(conc,G,errorG,'go-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Green Channel')
-subplot(2,2,3)
-errorbar(conc,B,errorB,'bo-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Blue Channel')
-subplot(2,2,4)
-errorbar(conc,C,errorC,'co-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Clear Channel')
-print('readingVsConc','-dpng')
+C_control = mean(Rvec_control);
+errorR_control = std(Rvec_control);
 
 
-%% calibrate - weigh channels according to average difference between sample points
+%% calibrate - weigh channels accordingly 
 

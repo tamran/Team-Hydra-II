@@ -4,6 +4,14 @@ import { ColorMeasurement, TrialData } from './models.js';
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI);
 
+export const getAllTrials = (res) => {
+    TrialData.find({})
+    .populate('colorMeasurements')
+        .exec((err, trials)=> {
+            res.send(trials.map(trial => trial.name))
+        })
+}
+
 export const getTrial = (trialName, res) => {
     TrialData.findOne({
         name: trialName,

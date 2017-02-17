@@ -1,22 +1,19 @@
-var express = require('express')
-var bodyParser = require('body-parser');
-var app = express()
+import http from 'http'
+import express from 'express'
+import bodyParser from 'body-parser'
 
-//Set up middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
+import { connectMiddleware } from './server_middleware_setup'
+import { route } from './routes'
 
-//Set up routes
-app.route('/')
-    .get((req,res) => {
-        res.send('hello world')
-    })
-    .post((req,res) => {
-        console.log(req.body);
-        res.end();
-    })
+const app = express()
+const server = http.Server(app);
+const DEV_PORT = 3000;
+const PORT = process.env.PORT || DEV_PORT;
+
+connectMiddleware(app);
+route(app);
 
 //Start server
-app.listen(3000, function () {
-  console.log('Listening on port 3000!')
+server.listen(PORT, function () {
+  console.log(`Listening on port ${PORT}!`)
 })

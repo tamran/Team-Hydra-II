@@ -8,4 +8,4 @@
 
 ## To start the server
 
-- Inside of the server/ directory, type `node index.js`
+- Inside of the server/ directory, type `npm run serve`

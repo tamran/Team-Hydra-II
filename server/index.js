@@ -1,12 +1,22 @@
 var express = require('express')
+var bodyParser = require('body-parser');
 var app = express()
 
-// respond with "hello world" when a GET request is made to the homepage
+//Set up middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+
+//Set up routes
 app.route('/')
     .get((req,res) => {
         res.send('hello world')
     })
+    .post((req,res) => {
+        console.log(req.body);
+        res.end();
+    })
 
+//Start server
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Listening on port 3000!')
 })

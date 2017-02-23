@@ -1,6 +1,6 @@
 # Team-Hydra-II
 
-## To access the currently live version of the server
+## To access the currently live version of the app
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
 ## To setup the Express Server on a local machine

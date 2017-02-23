@@ -20,7 +20,7 @@
 - The setup allows continuous development without re-running code!
   - __Note__ that when you make changes to files in the `server/` directory, the server will automatically be restarted with nodemon.   When you change code in the `src/` directory, the code will be re-transpiled with watchify and babelify
 
-## To prepare the server for production
+## To prepare the app for production
 - Run `npm run build`
   - This builds a production-ready, transpiled server and client code that can be run on Heroku. 
   - This is necessary, as I'm using new JavaScript syntax, and node does not currently support all of its features

@@ -5,11 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.route = undefined;
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _mongo_connector = require('./db/mongo_connector');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var route = exports.route = function route(app) {
     app.route('/').get(function (req, res) {
-        res.send('Welcome to Team Hydra II!\nNavigate to /trials to list all trial names.\n  Navigate to trial/:trialName to get the data associated with the :trialName experiment');
+        if (process.env.NODE_ENV === 'production') {
+            res.sendFile(_path2.default.resolve(__dirname, '..', 'build', 'index.html'));
+        } else {
+            res.sendFile(_path2.default.resolve(__dirname, '..', 'public-dev', 'index.dev.html'));
+        }
     }).post(function (req, res) {
         console.log(req.body);
         res.end();

@@ -25,3 +25,4 @@
   - This builds a production-ready, transpiled server and client code that can be run on Heroku. 
   - This is necessary, as I'm using new JavaScript syntax, and node does not currently support all of its features
 - Commit/push all changes, then upload to Heroku using `git push heroku master`
+- You can then visit the live website by typing `heroku open` in terminal

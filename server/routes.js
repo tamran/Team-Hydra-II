@@ -1,9 +1,14 @@
+import path from 'path';
 import { getAllTrials, getTrial, createTrial, saveMeasurement } from './db/mongo_connector';
 
 export const route = (app) => {
     app.route('/')
         .get((req,res) => {
-            res.send('Welcome to Team Hydra II!\nNavigate to /trials to list all trial names.\n  Navigate to trial/:trialName to get the data associated with the :trialName experiment')
+            if (process.env.NODE_ENV === 'production') {
+                res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+            } else {
+                res.sendFile(path.resolve(__dirname, '..', 'public-dev', 'index.dev.html'));
+            }
         })
         .post((req,res) => {
             console.log(req.body);

@@ -5,3 +5,11 @@ export const changeNewExperimentText = (textFieldId, changedText) => ({
     id: textFieldId,
     text: changedText,
 })
+
+export const requestCreateExperiment = () => ({
+    type: ActionTypes.CREATE_EXPERIMENT_REQUEST,
+})
+
+export const succeedCreateExperiment = () => ({
+    type: ActionTypes.CREATE_EXPERIMENT_SUCCESS,
+})

@@ -10,6 +10,11 @@ const updateEntry = (state={
                 label: action.id,
                 text: action.text,
             }
+        case ActionTypes.CREATE_EXPERIMENT_SUCCESS:
+            return {
+                ...state,
+                text: '',
+            }
         default:
             return {
                 ...state,
@@ -44,11 +49,11 @@ const updateAllIds = (state, action) => {
 
 const newExperimentInfo = (state={
     byId: {
-        "Turbidity": undefined,
-        "Concentration": undefined,
-        "Number of Measurements": undefined,
+        'Turbidity': undefined,
+        'Concentration': undefined,
+        'Number of Measurements': undefined,
     },
-    allIds: ["Turbidity", "Concentration", "Number of Measurements"],
+    allIds: ['Turbidity', 'Concentration', 'Number of Measurements'],
 }, action) => ({
     ...state,
     byId: updateById(state.byId, action),

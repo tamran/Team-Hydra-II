@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Grid, Row, Col, Jumbotron, FormControl, Form, Button } from 'react-bootstrap';
 import NavbarInstance from './Navbar';
+import VisibleStatusBox from '../containers/VisibleStatusBox';
 import VisibleExperimentSubmissionForm  from '../containers/VisibleExperimentSubmissionForm';
 
 const App = ({ params }) => (
@@ -17,6 +18,7 @@ const App = ({ params }) => (
                         </p>
                     </Jumbotron>
                     <VisibleExperimentSubmissionForm />
+                    <VisibleStatusBox/>
                 </Col>
             </Row>
         </Grid>

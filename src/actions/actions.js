@@ -6,6 +6,11 @@ export const changeNewExperimentText = (textFieldId, changedText) => ({
     text: changedText,
 })
 
+export const updateLastMeasurement = (measurementTime) => ({
+    type: ActionTypes.UPDATE_LATEST_MEASUREMENT,
+    time: measurementTime,
+})
+
 export const requestCreateExperiment = () => ({
     type: ActionTypes.CREATE_EXPERIMENT_REQUEST,
 })

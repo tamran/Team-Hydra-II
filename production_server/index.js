@@ -14,7 +14,7 @@ var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
 var _server_middleware_setup = require('./server_middleware_setup');
 
-var _routes = require('./routes');
+var _routes = require('./routes/routes');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

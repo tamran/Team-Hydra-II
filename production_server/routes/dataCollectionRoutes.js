@@ -6,6 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _mongo_connector = require('../db/mongo_connector');
 
+var _socket_io_connector = require('../socket_io_connector');
+
+var getCurrentTime = function getCurrentTime() {
+    var date = new Date().toString();
+    return date;
+};
+
 var dataCollection = function dataCollection(app) {
     app.route('/trials').get(function (req, res) {
         (0, _mongo_connector.getAllTrials)(res);
@@ -18,6 +25,7 @@ var dataCollection = function dataCollection(app) {
     });
     app.route('/measurement/:trialName').post(function (req, res) {
         (0, _mongo_connector.saveMeasurement)(req.params.trialName, req.body);
+        (0, _socket_io_connector.emitter)(getCurrentTime());
         res.end();
     });
 };

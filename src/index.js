@@ -7,13 +7,16 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/root';
 import App from './components/App';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import startPushNotifications, { pushNotificationsMiddleware } from './custom_middleware/push_notifications'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const navMiddleware = routerMiddleware(browserHistory);
-const enhancers = composeEnhancers(applyMiddleware(thunk, navMiddleware));
+const enhancers = composeEnhancers(applyMiddleware(thunk, navMiddleware, pushNotificationsMiddleware));
 let store = createStore(rootReducer, enhancers);
 
 const history = syncHistoryWithStore(browserHistory, store);
+
+startPushNotifications(store);
 
 render(
     <Provider store={store}>

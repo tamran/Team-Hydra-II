@@ -1,4 +1,10 @@
 import { getAllTrials, getTrial, createTrial, saveMeasurement } from '../db/mongo_connector';
+import { emitter } from '../socket_io_connector';
+
+let getCurrentTime = () => {
+    let date = new Date().toString(); 
+    return date;
+}
 
 let dataCollection = (app) => {
     app.route('/trials')
@@ -16,6 +22,7 @@ let dataCollection = (app) => {
     app.route('/measurement/:trialName')
         .post((req,res) => {
             saveMeasurement(req.params.trialName,req.body)
+            emitter(getCurrentTime());
             res.end();
         })
 }

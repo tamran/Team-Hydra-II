@@ -3,6 +3,31 @@
 ## To access the currently live version of the app
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
+## Currently available features on live version:
+
+- From the _web client_
+  - Request for a new trial to be started with a given turbidity, concentration, and number of trials
+  - View when the last posted measurement was taken
+    - __NOTE__ that when the client is first opened, the last posted measurement will be N/A.  When the next measurement is posted to the database, the time will be updated accordingly
+- The server accepts the following API
+  - /
+    - `GET` Get the HTML associated with the website
+  - /newExperiment
+    - `GET` Get the information necessary to start running the experiment
+      - This is the signal for the sensor to start taking data.  The string will be empty if no experiment is to be run
+    - `POST` Inform the server of the information necessary to start running the experiment
+      - This API endpoint is intended to be used by the web client
+  - /clearExperiment
+    - `GET` The signal for the sensor to send to the server that it has started to take measurement for the trial specified by /newExperiment
+  - /trials
+    - `GET` Returns a string list of the names of all trials stored in the database
+  - /trial/:trialName
+    - `GET` Returns the measurements associated with the trial :trialName
+    - `POST` Creates a trial in the database named :trialName
+  - /measurement/:trialName
+    - `POST` Saves the data stored in the request body to a new measurement in the specified :trialName
+      - When the measurement has been posted to the database, the server notifies the web client that a new measurement has been placed in the database
+
 ## To setup the Express Server on a local machine
 
 - First, you'll need to install [NodeJS](https://nodejs.org/en/)

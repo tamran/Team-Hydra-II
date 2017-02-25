@@ -18,7 +18,7 @@ export const createExperiment = () => {
         }
 
         dispatch(requestCreateExperiment());
-        return fetch('/', {
+        return fetch('/newExperiment', {
                 headers: {
                     'Accept':'text/plain',
                     'Content-Type': 'application/json',

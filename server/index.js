@@ -3,7 +3,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 
 import { connectMiddleware } from './server_middleware_setup'
-import { route } from './routes'
+import { route } from './routes/routes'
 
 const app = express()
 const server = http.Server(app);

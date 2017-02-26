@@ -14,16 +14,16 @@ var getCurrentTime = function getCurrentTime() {
 };
 
 var dataCollection = function dataCollection(app) {
-    app.route('/trials').get(function (req, res) {
+    app.route('/api/trials').get(function (req, res) {
         (0, _mongo_connector.getAllTrials)(res);
     });
-    app.route('/trial/:trialName').get(function (req, res) {
+    app.route('/api/trial/:trialName').get(function (req, res) {
         (0, _mongo_connector.getTrial)(req.params.trialName, res);
     }).post(function (req, res) {
         (0, _mongo_connector.createTrial)(req.params.trialName);
         res.end();
     });
-    app.route('/measurement/:trialName').post(function (req, res) {
+    app.route('/api/measurement/:trialName').post(function (req, res) {
         var measurement = req.body;
         (0, _mongo_connector.saveMeasurement)(req.params.trialName, measurement);
         measurement.name = req.params.trialName;

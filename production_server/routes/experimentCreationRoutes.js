@@ -32,14 +32,13 @@ var clearExperimentData = function clearExperimentData() {
 };
 
 var experimentCreation = function experimentCreation(app) {
-    app.route('/newExperiment').get(function (req, res) {
+    app.route('/api/newExperiment').get(function (req, res) {
         res.send(getExperimentData());
     }).post(function (req, res) {
-        console.log(req.body);
         setCurrentExperiment(req.body);
         res.end();
     });
-    app.route('/clearExperiment').get(function (req, res) {
+    app.route('/api/clearExperiment').get(function (req, res) {
         res.send(clearExperimentData());
     });
 };

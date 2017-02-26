@@ -24,8 +24,11 @@ var dataCollection = function dataCollection(app) {
         res.end();
     });
     app.route('/measurement/:trialName').post(function (req, res) {
-        (0, _mongo_connector.saveMeasurement)(req.params.trialName, req.body);
-        (0, _socket_io_connector.emitter)(getCurrentTime());
+        var measurement = req.body;
+        (0, _mongo_connector.saveMeasurement)(req.params.trialName, measurement);
+        measurement.name = req.params.trialName;
+        measurement.time = getCurrentTime();
+        (0, _socket_io_connector.emitter)(measurement);
         res.end();
     });
 };

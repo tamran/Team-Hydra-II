@@ -21,8 +21,11 @@ let dataCollection = (app) => {
         })
     app.route('/measurement/:trialName')
         .post((req,res) => {
-            saveMeasurement(req.params.trialName,req.body)
-            emitter(getCurrentTime());
+            let measurement = req.body;
+            saveMeasurement(req.params.trialName,measurement)
+            measurement.trialName = req.params.trialName;
+            measurement.currentTime = getCurrentTime();
+            emitter(measurement);
             res.end();
         })
 }

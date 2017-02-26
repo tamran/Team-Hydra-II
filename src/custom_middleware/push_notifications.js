@@ -20,7 +20,6 @@ export default function(store) {
     socket = io.connect();
 
     socket.on('measurement', measurementTime => {
-        console.log('measurement detected: ', measurementTime)
         store.dispatch(updateLastMeasurement(measurementTime))
     })
 }

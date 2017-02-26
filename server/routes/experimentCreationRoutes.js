@@ -27,16 +27,15 @@ let clearExperimentData = () => {
 }
 
 let experimentCreation = (app) => {
-    app.route('/newExperiment')
+    app.route('/api/newExperiment')
         .get((req,res) => {
             res.send(getExperimentData());
         })
         .post((req,res) => {
-            console.log(req.body);
             setCurrentExperiment(req.body)
             res.end();
         })
-    app.route('/clearExperiment')
+    app.route('/api/clearExperiment')
         .get((req,res)=> {
             res.send(clearExperimentData());
         })

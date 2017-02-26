@@ -18,7 +18,7 @@ export const createExperiment = () => {
         }
 
         dispatch(requestCreateExperiment());
-        return fetch('/newExperiment', {
+        return fetch('/api/newExperiment', {
                 headers: {
                     'Accept':'text/plain',
                     'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ export const createExperiment = () => {
 
 export const loadAllTrialData = () => {
     return (dispatch) => {
-        return fetch('/trials')
+        return fetch('/api/trials')
         .then(res => res.json())
         .then(json => json.forEach(trialName => {
                 dispatch(createNewTrial(trialName))
-                fetch(`/trial/${trialName}`)
+                fetch(`/api/trial/${trialName}`)
                     .then(res => res.json())
                     .then(json => json.forEach(measurement => {
                         dispatch(createNewMeasurement(trialName, measurement));

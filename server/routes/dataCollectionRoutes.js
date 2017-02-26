@@ -7,11 +7,11 @@ let getCurrentTime = () => {
 }
 
 let dataCollection = (app) => {
-    app.route('/trials')
+    app.route('/api/trials')
         .get((req,res) => {
             getAllTrials(res);
         })
-    app.route('/trial/:trialName')
+    app.route('/api/trial/:trialName')
         .get((req,res) => {
             getTrial(req.params.trialName, res)
         })
@@ -19,7 +19,7 @@ let dataCollection = (app) => {
             createTrial(req.params.trialName)
             res.end();
         })
-    app.route('/measurement/:trialName')
+    app.route('/api/measurement/:trialName')
         .post((req,res) => {
             let measurement = req.body;
             saveMeasurement(req.params.trialName,measurement)

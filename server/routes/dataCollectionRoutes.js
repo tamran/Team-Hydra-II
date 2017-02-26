@@ -23,8 +23,8 @@ let dataCollection = (app) => {
         .post((req,res) => {
             let measurement = req.body;
             saveMeasurement(req.params.trialName,measurement)
-            measurement.trialName = req.params.trialName;
-            measurement.currentTime = getCurrentTime();
+            measurement.name = req.params.trialName;
+            measurement.time = getCurrentTime();
             emitter(measurement);
             res.end();
         })

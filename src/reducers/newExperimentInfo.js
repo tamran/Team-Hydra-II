@@ -5,6 +5,9 @@ const updateEntry = (state={
     text: "",
 }, action, labelName) => {
     switch(action.type) {
+        case ActionTypes.LOCATION_CHANGE:
+            console.log(action)
+            return state;
         case ActionTypes.CHANGE_NEW_EXPERIMENT_TEXT:
             return {
                 label: action.id,

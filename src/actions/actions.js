@@ -1,5 +1,10 @@
 import ActionTypes from './actionTypes';
 
+export const changeLocation = (location) => ({
+    type: ActionTypes.LOCATION_CHANGE,
+    location: location,
+})
+
 export const changeNewExperimentText = (textFieldId, changedText) => ({
     type: ActionTypes.CHANGE_NEW_EXPERIMENT_TEXT,
     id: textFieldId,
@@ -17,4 +22,15 @@ export const requestCreateExperiment = () => ({
 
 export const succeedCreateExperiment = () => ({
     type: ActionTypes.CREATE_EXPERIMENT_SUCCESS,
+})
+
+export const createNewTrial = (trialName) => ({
+    type: ActionTypes.CREATE_NEW_TRIAL,
+    name: trialName,
+})
+
+export const createNewMeasurement = (trialName, measurement) => ({
+    type: ActionTypes.CREATE_NEW_MEASUREMENT,
+    name: trialName,
+    measurement: measurement,
 })

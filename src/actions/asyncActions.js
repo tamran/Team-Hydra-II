@@ -1,4 +1,4 @@
-import { requestCreateExperiment, succeedCreateExperiment } from './actions';
+import { requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement } from './actions';
 import fetch from 'isomorphic-fetch';
 
 const experimentInfoIsValid = (experimentInfoMap) => {
@@ -30,5 +30,22 @@ export const createExperiment = () => {
         })
             .then(dispatch(succeedCreateExperiment()))
             .then(Promise.resolve())
+    }
+}
+
+export const loadAllTrialData = () => {
+    return (dispatch) => {
+        return fetch('/trials')
+        .then(res => res.json())
+        .then(json => json.forEach(trialName => {
+                dispatch(createNewTrial(trialName))
+                fetch(`/trial/${trialName}`)
+                    .then(res => res.json())
+                    .then(json => json.forEach(measurement => {
+                        dispatch(createNewMeasurement(trialName, measurement));
+                    }))
+            })
+        )
+        .then(Promise.resolve())
     }
 }

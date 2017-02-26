@@ -12,6 +12,7 @@ const NavbarInstance = () => (
         </Navbar.Header>
         <Nav>
             <NavItemInstance to={{ pathname: 'experiment' }} text="Experiment Status" />
+            <NavItemInstance to={{ pathname: 'data' }} text="Trial Data" />
         </Nav>
     </Navbar>
 )

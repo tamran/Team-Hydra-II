@@ -20,14 +20,14 @@ int LED_PIN = 13;
 
 
 
-void getColorReading(){
+void getColorReading(int n){
   uint16_t r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b);
 
-  for (int i = 0; i<100; i++){
+  for (int i = 0; i<n; i++){
     uint16_t r, g, b, c, colorTemp, lux;
   
     tcs.getRawData(&r, &g, &b, &c);

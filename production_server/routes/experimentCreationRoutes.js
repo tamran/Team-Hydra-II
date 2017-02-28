@@ -10,7 +10,7 @@ var setCurrentExperiment = function setCurrentExperiment(body) {
     var conc = body['Concentration'].text;
     var numExperiments = body['Number of Measurements'].text;
     var currentTime = new Date().toISOString();
-    var experimentName = turbidity + conc + numExperiments + currentTime;
+    var experimentName = 'turbidity_' + turbidity + '_concentration_' + conc + '_numExperiments_' + numExperiments + '_time_' + currentTime;
 
     experimentData = {
         turbidity: turbidity,

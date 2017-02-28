@@ -30,6 +30,18 @@
     - `POST` Saves the data stored in the request body to a new measurement in the specified :trialName
       - When the measurement has been posted to the database, the server notifies the web client that a new measurement has been placed in the database
 
+## To setup the Feather communication in Arduino
+
+- host = team-hydra-ii.herokuapp.com
+- httpPort = 80
+- Check for a new measurement
+  - Make a GET request to /api/newMeasurement
+  - If the response has a body (i.e. is not {})
+    - Make a POST request to /api/trial/:trialName (where :trialName is the `experimentName` field in the response body of the previous GET request) to create a new trial called :trialName in the database
+    - The number of times to run the experiment is specified in the response body of the GET request, in the field `numExperiments`
+    - For each measurement that you take, make a POST request to /api/measurement/:trialName, where the body of the post request contains all of the measurement information
+    - Once the requested number of measurements have been taken, make a GET request to /api/clearExperiment to clear the requested experiment that you just completed
+
 ## To setup the Express Server on a local machine
 
 - First, you'll need to install [NodeJS](https://nodejs.org/en/)

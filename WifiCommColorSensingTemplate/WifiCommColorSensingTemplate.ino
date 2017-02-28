@@ -4,8 +4,8 @@
 
 const char* ssid     = "TeamHydraII";
 const char* password = "ecedesign449";
-const char* host = "10.236.113.13";
-const char* httpPort = "3000";
+const char* host = "team-hydra-ii.herokuapp.com";
+const char* httpPort = "80";
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 /* Adafruit_TCS34725 tcs = Adafruit_TCS34725();

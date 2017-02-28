@@ -32,7 +32,7 @@ const currentExperiment = (state={
         case ActionTypes.UPDATE_LATEST_MEASUREMENT:
             return {
                 ...state,
-                lastReadingTime: action.measurement.currentTime,
+                lastReadingTime: action.measurement.time,
                 measurements: updateMeasurements(state.measurements, action)
             }
         default:

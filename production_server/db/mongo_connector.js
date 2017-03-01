@@ -53,6 +53,7 @@ var saveMeasurement = exports.saveMeasurement = function saveMeasurement(trialNa
             R: measurement.R,
             G: measurement.G,
             B: measurement.B,
+            C: measurement.C,
             ColorTemp: measurement.ColorTemp,
             lux: measurement.lux
         });

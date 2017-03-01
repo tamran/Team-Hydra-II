@@ -41,6 +41,23 @@
     - The number of times to run the experiment is specified in the response body of the GET request, in the field `numExperiments`
     - For each measurement that you take, make a POST request to /api/measurement/:trialName, where the body of the post request contains all of the measurement information
     - Once the requested number of measurements have been taken, make a GET request to /api/clearExperiment to clear the requested experiment that you just completed
+    
+## To communicate with the API over command line:
+
+- To create a new experiment:
+  - Go to the website, fill out the form, and press enter
+
+- To view the new experiment that is created by the form on the website:
+  - `curl team-hydra-ii.herokuapp.com/api/newExperiment`
+
+- To create a new trial in the database:
+  - `curl --data "" team-hydra-ii.herokuapp.com/api/trial/TRIALNAME`
+
+- To add a measurement to this trial name:
+  - `curl --data "R=2&G=3&B=4&C=5&ColorTemp=6&lux=7" team-hydra-ii.herokuapp.com/api/measurement/TRIALNAME`
+
+- To clear the new experiment flag once the experiment has completed:
+  - `curl team-hydra-ii.herokuapp.com/api/clearExperiment`
 
 ## To setup the Express Server on a local machine
 

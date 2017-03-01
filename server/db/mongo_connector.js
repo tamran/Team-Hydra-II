@@ -44,6 +44,7 @@ export const saveMeasurement = (trialName, measurement) => {
                 R: measurement.R,
                 G: measurement.G,
                 B: measurement.B,
+                C: measurement.C,
                 ColorTemp: measurement.ColorTemp,
                 lux: measurement.lux,
             })

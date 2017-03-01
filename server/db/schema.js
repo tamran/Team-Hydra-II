@@ -5,6 +5,7 @@ export const colorMeasurementSchema = Schema({
     R: Number,
     G: Number,
     B: Number,
+    C: Number,
     ColorTemp: Number,
     lux: Number,
     time: { type: Date, default: Date.now },

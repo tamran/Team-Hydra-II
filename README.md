@@ -46,16 +46,12 @@
 
 - To create a new experiment:
   - Go to the website, fill out the form, and press enter
-
 - To view the new experiment that is created by the form on the website:
   - `curl team-hydra-ii.herokuapp.com/api/newExperiment`
-
 - To create a new trial in the database:
   - `curl --data "" team-hydra-ii.herokuapp.com/api/trial/TRIALNAME`
-
 - To add a measurement to this trial name:
   - `curl --data "R=2&G=3&B=4&C=5&ColorTemp=6&lux=7" team-hydra-ii.herokuapp.com/api/measurement/TRIALNAME`
-
 - To clear the new experiment flag once the experiment has completed:
   - `curl team-hydra-ii.herokuapp.com/api/clearExperiment`
 

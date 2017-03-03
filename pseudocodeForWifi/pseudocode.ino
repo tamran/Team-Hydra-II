@@ -102,6 +102,10 @@ void postMeasurement(String measurementToPost) {
     // send post request to database
 }
 
+void clearExperimentInfo(client) {
+    //make a get request to /api/clearExperiment
+}
+
 void recordMeasurements(String** experimentDataPtr, int numExperiments) {
     WiFiClient client = connect();
     for each i in numExperiments {
@@ -109,17 +113,14 @@ void recordMeasurements(String** experimentDataPtr, int numExperiments) {
         postMeasurement(measurement)
     }
     // should add a check to make sure the post request actually goes through
+    clearExperimentInfo();
 }
 
 void loop(void) {
     String experimentInfo = getNewExperiment(connect());
-
     // wait for some amount of time before the sensor gets into the water
     delay(...)
-    
     String* experimentData = collectMeasurements(experimentInfo);
-
     recordMeasurements(&experimentData);
-    
     delete [] experimentData;
 }

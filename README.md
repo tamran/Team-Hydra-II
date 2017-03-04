@@ -11,7 +11,8 @@
     - __NOTE__ that when the client is first opened, the last posted measurement will be N/A.  When the next measurement is posted to the database, the time will be updated accordingly
   - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor"
   - Clicking the `Trial Data` navigation item displays a list of all conducted Trials.  You can click on the trial name to see all measurements associated with the selected trial. __NOTE__ that the data on this page only updates when you re-select the `Trial Data` navigation item.
-- The server accepts the following API
+
+## The server accepts the following API
   - /
     - `GET` Get the HTML associated with the website
   - /api/newExperiment
@@ -29,6 +30,8 @@
   - /api/measurement/:trialName
     - `POST` Saves the data stored in the request body to a new measurement in the specified :trialName
       - When the measurement has been posted to the database, the server notifies the web client that a new measurement has been placed in the database
+
+__NOTE__ that there are two different types of routes - ReactRouter routes, and routes that the server accepts.  For example, there are `/experiment` and `/data` ReactRouter routes that appear when navigating to different tabs on the website. However, reloading the webpage at these routes will result in a _Cannot GET /ROUTE_NAME_.  This is because these are client-side routes only, and thus do not exist on the server side.  I am currently working on a way around this, so that reloading the webpage at one of these routes does not result in the _Cannot GET_ message.
 
 ## To setup the Feather communication in Arduino
 

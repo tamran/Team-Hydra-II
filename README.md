@@ -1,6 +1,6 @@
 # Team-Hydra-II
 
-## To access the currently live version of the app
+## To access the currently live version of the app:
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
 ## Currently available features on live version:
@@ -12,7 +12,7 @@
   - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor"
   - Clicking the `Trial Data` navigation item displays a list of all conducted Trials.  You can click on the trial name to see all measurements associated with the selected trial. __NOTE__ that the data on this page only updates when you re-select the `Trial Data` navigation item.
 
-## The server accepts the following API
+## The server accepts the following API:
   - /
     - `GET` Get the HTML associated with the website
   - /api/newExperiment
@@ -33,7 +33,7 @@
 
 __NOTE__ that there are two different types of routes - ReactRouter routes, and routes that the server accepts.  For example, there are `/experiment` and `/data` ReactRouter routes that appear when navigating to different tabs on the website. However, reloading the webpage at these routes will result in a _Cannot GET /ROUTE_NAME_.  This is because these are client-side routes only, and thus do not exist on the server side.  I am currently working on a way around this, so that reloading the webpage at one of these routes does not result in the _Cannot GET_ message.
 
-## To setup the Feather communication in Arduino
+## To setup the Feather communication in Arduino:
 
 - host = team-hydra-ii.herokuapp.com
 - httpPort = 80
@@ -58,13 +58,13 @@ __NOTE__ that there are two different types of routes - ReactRouter routes, and 
 - To clear the new experiment flag once the experiment has completed:
   - `curl team-hydra-ii.herokuapp.com/api/clearExperiment`
 
-## To setup the Express Server on a local machine
+## To setup the Express Server on a local machine:
 
 - First, you'll need to install [NodeJS](https://nodejs.org/en/)
 - Navigate to the base directory of the Team-Hydra-II project
 - Type `npm install` to install all dependencies listed in `package.json`
 
-## To start the app locally
+## To start the app locally:
 
 - Run `npm run watch` to transpile the client-side code into a form that can be rendered in a browser
 - Run `npm run serve` to start the development server
@@ -75,7 +75,7 @@ __NOTE__ that there are two different types of routes - ReactRouter routes, and 
 - The setup allows continuous development without re-running code!
   - __Note__ that when you make changes to files in the `server/` directory, the server will automatically be restarted with nodemon.   When you change code in the `src/` directory, the code will be re-transpiled with watchify and babelify
 
-## To prepare the app for production
+## To prepare the app for production:
 - Run `npm run build`
   - This builds a production-ready, transpiled server and client code that can be run on Heroku. 
   - This is necessary, as I'm using new JavaScript syntax, and node does not currently support all of its features

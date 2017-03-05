@@ -7,7 +7,7 @@
 
 const char* ssid     = "TeamHydraII";
 const char* password = "ecedesign449";
-const char* host = "team-hydra-ii.herokuapp.com";
+String HOST = "http://team-hydra-ii.herokuapp.com";
 const int httpPort = 80;
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
@@ -39,13 +39,6 @@ String getField(aJsonObject* json, const char* aField) {
 }
 
 /**
-  returns 1 if Feather is connected to WiFi, 0 otherwise
-*/
-char isConnectedToWiFi(void) {
-  return WiFi.status() == WL_CONNECTED;
-}
-
-/**
   Connects Feather to a WiFi network.  Loops until the device is connected
 */
 void connectToWiFi(void) {
@@ -69,33 +62,6 @@ void connectToWiFi(void) {
 }
 
 /**
-  Connects the client to the server, and returns the connected client so that we can send and receive
-  data with the server
-*/
-//WiFiClient connectToServer(void) {
-//  //Connect to Host
-//  Serial.print("connecting to ");
-//  Serial.println(host);
-//  // Use WiFiClient class to create TCP connections
-//  WiFiClient client;
-//  while (!client.connect(host, httpPort)) {
-//    Serial.println("connection failed");
-//    //TODO: add this back
-//    //    Serial.println("attempting to connect to WiFi again");
-//    //    connectToWiFi();
-//    //    Serial.println("Connected to WiFi, now trying server again");
-//  }
-//
-//  return client;
-//}
-
-void connect() {
-  connectToWiFi();
-  //  WiFiClient client = connectToServer();
-  //  return client;
-}
-
-/**
   Gets a new valid experiment.
 */
 aJsonObject* get(String endpoint) {
@@ -103,7 +69,7 @@ aJsonObject* get(String endpoint) {
   // return the response
 
   HTTPClient http;
-  http.begin("http://team-hydra-ii.herokuapp.com" + endpoint);
+  http.begin(HOST + endpoint);
   int httpCode = http.GET();
   Serial.print("HTTP response code ");
   Serial.println(httpCode);
@@ -128,30 +94,13 @@ aJsonObject* get(String endpoint) {
   return jsonObject;
 }
 
-String takeMeasurement() {
-  // get all sensor data, and construct the POST string
-  return "";
-}
-
-String* collectMeasurements(String experimentInfo) {
-  // each measurement will be a string (ie what we send to the server)
-  int SIZE = 5;
-  String* experimentData = new String[SIZE];
-
-  //    for the specified amount of measurements {
-  //        experientData[i] = takeMeasurement();
-  //    }
-
-  return experimentData;
-}
 
 void createTrial(String trial) {
   // send post request to database
   HTTPClient http;
-  http.begin("http://team-hydra-ii.herokuapp.com/api/trial/" + trial);
+  http.begin( HOST + "/api/trial/" + trial);
   aJsonObject *root;
   root = aJson.createObject();
-  //  aJson.addStringToObject(root, "message", "Hello from ESP8266");
   char *payload = aJson.print(root);
   int httpCode = http.POST((uint8_t *)payload, strlen(payload));
   if (httpCode == HTTP_CODE_OK)
@@ -183,7 +132,7 @@ aJsonObject* constructMeasurement(const char* R, const char* G, const char* B, c
 void postMeasurement(String trial, aJsonObject* json) {
   // send post request to database
   HTTPClient http;
-  http.begin("http://team-hydra-ii.herokuapp.com/api/measurement/" + trial);
+  http.begin(HOST + "/api/measurement/" + trial);
   http.addHeader("Content-Type", "application/json");
   char *payload = aJson.print(json);
   Serial.println(payload);
@@ -201,10 +150,18 @@ void postMeasurement(String trial, aJsonObject* json) {
   return;
 }
 
+
+String takeMeasurement(String experiment) {
+  // get all sensor data, and construct the POST string
+  aJsonObject* meas = constructMeasurement("1", "1", "2", "3", "5", "8");
+  postMeasurement(experiment, meas);
+  return "";
+}
+
 void clearExperimentInfo() {
   //make a get request to /api/clearExperiment
   HTTPClient http;
-  http.begin("http://team-hydra-ii.herokuapp.com/api/clearExperiment");
+  http.begin(HOST + "/api/clearExperiment");
   int httpCode = http.GET();
   Serial.print("HTTP response code ");
   Serial.println(httpCode);
@@ -229,28 +186,20 @@ void clearExperimentInfo() {
   return;
 }
 
-void recordMeasurements(String** experimentDataPtr, int numExperiments) {
-  //  WiFiClient client = connect();
-  //    for each i in numExperiments {
-  //        String measurement = *experimentDataPtr[i];
-  //        postMeasurement(measurement)
-  //    }
-  // should add a check to make sure the post request actually goes through
-  //  clearExperimentInfo(client);
-}
-
 int count = 0;
 void loop(void) {
   if (count == 0) {
-    connect();
+    connectToWiFi();
     aJsonObject* experimentInfo = get("/api/newExperiment");
     //an example of how to parse the json object
     if (getField(experimentInfo, "experimentName") != "") {
       String experiment = getField(experimentInfo, "experimentName");
       Serial.print(experiment);
       createTrial(experiment);
-      aJsonObject* meas = constructMeasurement("1","1","2","3","5","8");
-      postMeasurement(experiment,meas);
+      int numExperiments = getField(experimentInfo, "numExperiments").toInt();
+      for (int i = 0; i < numExperiments; ++i) {
+        takeMeasurement(experiment);
+      }
       clearExperimentInfo();
     }
     count = 1;

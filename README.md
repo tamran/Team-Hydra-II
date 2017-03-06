@@ -33,6 +33,42 @@
 
 __NOTE__ that there are two different types of routes - ReactRouter routes, and routes that the server accepts.  For example, there are `/experiment` and `/data` ReactRouter routes that appear when navigating to different tabs on the website. However, reloading the webpage at these routes will result in a _Cannot GET /ROUTE_NAME_.  This is because these are client-side routes only, and thus do not exist on the server side.  I am currently working on a way around this, so that reloading the webpage at one of these routes does not result in the _Cannot GET_ message.
 
+## The (intended) public API available to the Feather
+
+- DataCollection.iso
+  - `void collectData(String experiment, int numExperiments)`
+    - Takes measurements using the color sensor, and posts the measurements to the database
+      - When WiFi isn't available, these measurements are added to a buffer, and POSTed when WiFi becomes available again
+  - `int createTrial(String trial)`
+    - Creates a new trial in the database
+    - Returns the HTTP response code (success == 200)
+- HTTPRequests.iso
+  - `aJsonObject* get(String endpoint)`
+    - Makes a GET request to the specified api endpoint
+    - Returns the JSON response object
+- JSONHelpers.iso
+  - `String getField(aJsonObject* json, const char* aField)`
+    - Returns the string value of the field in the JSON object
+    - Returns "" if the field doesn't exist
+  - `aJsonObject* getJson(String response)`
+    - Returns the JSON object corresponding to the input string
+    - Used to get the JSON object of an HTTP response
+  - `aJsonObject* constructMeasurement(const char* R, const char* G, const char* B, const char* C, const char* ColorTemp, const char* lux)`
+    - Constructs the JSON object to use as the request for posting a measurement
+- WiFiConnector.iso
+  - `void connectToWiFi()`
+    - Establishes the WiFi connection with our router
+    - This command returns only if the Feather has successfully connected to the WiFi network
+    
+## Feather Dependencies
+
+In order to run our code, the following packages must be available to the Arduino IDE
+
+- `ESP8266WiFi.h`
+- `aJSON.h`
+- `ESP8266HTTPClient.h`
+- `Adafruit_TCS34725.h`
+
 ## To setup the Feather communication in Arduino:
 
 - host = team-hydra-ii.herokuapp.com

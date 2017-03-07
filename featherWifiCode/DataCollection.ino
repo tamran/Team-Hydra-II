@@ -18,9 +18,14 @@ int postMeasurement(String trial, aJsonObject* json) {
    Takes a measurement from the sensor
    TODO -- set up to talk to sensor
 */
-aJsonObject* takeMeasurement() {
+aJsonObject* takeMeasurement(Adafruit_TCS34725 tcs) {
   // get all sensor data, and construct the POST string
-  return constructMeasurement("1", "1", "2", "3", "5", "8");
+  uint16_t r, g, b, c, colorTemp, lux;
+
+  tcs.getRawData(&r, &g, &b, &c);
+  colorTemp = tcs.calculateColorTemperature(r, g, b);
+  lux = tcs.calculateLux(r, g, b);
+  return constructMeasurement(String(r), String(g), String(b), String(c), String(colorTemp), String(lux));
   //  postMeasurement(experiment, meas);
   //  return "";
 }
@@ -28,13 +33,13 @@ aJsonObject* takeMeasurement() {
 /**
    Collects the requested number of measurements
 */
-void collectData(String experiment, int numExperiments) {
+void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs) {
   aJsonObject* buf[numExperiments];
   int bufTOS = -1;
   for (int i = 0; i < numExperiments; ++i) {
-    aJsonObject* meas = takeMeasurement();
+    aJsonObject* meas = takeMeasurement(tcs);
     buf[++bufTOS] = meas;
-    while (bufTOS > 0) {
+    while (bufTOS >= 0) {
       int httpCode = postMeasurement(experiment, buf[bufTOS]);
       if (httpCode != 200) {
         // we can't post now, wait till later
@@ -45,16 +50,19 @@ void collectData(String experiment, int numExperiments) {
       }
     }
   }
-  while (bufTOS > 0) {
+  Serial.println("Waiting to send data");
+  while (bufTOS >= 0) {
     int httpCode = postMeasurement(experiment, buf[bufTOS]);
     if (httpCode != 200) {
       // keep trying to post this measurement until we find WiFi
-      connectToWiFi();
+      while (connectToWiFi() == -1) {
+        //wait to connect
+      }
     } else {
       // pop off the stack
+      Serial.println("Beginning to send data");
       buf[bufTOS--] = nullptr;
     }
   }
-  delete [] buf;
 }
 

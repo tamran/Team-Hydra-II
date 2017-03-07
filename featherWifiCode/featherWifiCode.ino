@@ -22,7 +22,9 @@ void setup(void) {
 int count = 0;
 void loop(void) {
   if (count == 0) {
-    connectToWiFi();
+    if (connectToWiFi()==-1) {
+      return;
+    }
     
     aJsonObject* experimentInfo = get("/api/newExperiment");
     String experiment = getField(experimentInfo, "experimentName");
@@ -31,7 +33,11 @@ void loop(void) {
       int numExperiments = getField(experimentInfo, "numExperiments").toInt();
       
       createTrial(experiment);
-      collectData(experiment, numExperiments);
+      Serial.println("Trial created");
+      Serial.println("Pausing...");
+      //delay(20000);
+      Serial.println("Starting to collect data");
+      collectData(experiment, numExperiments, tcs);
       get("/api/clearExperiment");
     }
     count = 1;

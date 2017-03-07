@@ -59,9 +59,10 @@ __NOTE__ that there are two different types of routes - ReactRouter routes, and 
   - `aJsonObject* constructMeasurement(const char* R, const char* G, const char* B, const char* C, const char* ColorTemp, const char* lux)`
     - Constructs the JSON object to use as the request for posting a measurement
 - WiFiConnector.iso
-  - `void connectToWiFi()`
+  - `int connectToWiFi()`
     - Establishes the WiFi connection with our router
-    - This command returns only if the Feather has successfully connected to the WiFi network
+    - This command times out after waiting for 5 seconds
+    - Returns -1 if could not connect to WiFi, 1 otherwise
     
 ## Feather Dependencies
 

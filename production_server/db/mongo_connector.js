@@ -16,8 +16,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _mongoose2.default.Promise = Promise;
 _mongoose2.default.connect(process.env.MONGODB_URI);
 
-var getAllTrials = exports.getAllTrials = function getAllTrials(res) {
-    _models.TrialData.find({}).populate('colorMeasurements').exec(function (err, trials) {
+var getAllTrials = exports.getAllTrials = function getAllTrials(filter, res) {
+    _models.TrialData.find({ name: new RegExp(filter, 'i') }).populate('colorMeasurements').exec(function (err, trials) {
         res.send(trials.map(function (trial) {
             return trial.name;
         }));

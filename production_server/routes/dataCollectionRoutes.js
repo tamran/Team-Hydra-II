@@ -15,7 +15,7 @@ var getCurrentTime = function getCurrentTime() {
 
 var dataCollection = function dataCollection(app) {
     app.route('/api/trials').get(function (req, res) {
-        (0, _mongo_connector.getAllTrials)(res);
+        (0, _mongo_connector.getAllTrials)(req.query.filter, res);
     });
     app.route('/api/trial/:trialName').get(function (req, res) {
         (0, _mongo_connector.getTrial)(req.params.trialName, res);

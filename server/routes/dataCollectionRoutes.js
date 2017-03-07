@@ -9,7 +9,7 @@ let getCurrentTime = () => {
 let dataCollection = (app) => {
     app.route('/api/trials')
         .get((req,res) => {
-            getAllTrials(res);
+            getAllTrials(req.query.filter, res);
         })
     app.route('/api/trial/:trialName')
         .get((req,res) => {

@@ -32,7 +32,7 @@ void loop(void) {
       
       createTrial(experiment);
       collectData(experiment, numExperiments);
-      get("api/clearExperiment");
+      get("/api/clearExperiment");
     }
     count = 1;
   }

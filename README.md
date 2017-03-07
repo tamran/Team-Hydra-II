@@ -22,8 +22,11 @@
       - This API endpoint is intended to be used by the web client
   - /api/clearExperiment
     - `GET` The signal for the sensor to send to the server that it has started to take measurement for the trial specified by /newExperiment
-  - /api/trials
+  - /api/trials[?filter=FILTER_STRING]
     - `GET` Returns a string list of the names of all trials stored in the database
+      - May optionally filter your request for trials matching a certain string
+      - e.g. `/api/trials` returns all trial names
+      - e.g. `/api/trials?filter=derp` returns all trials containing the word derp in the trialName
   - /api/trial/:trialName
     - `GET` Returns the measurements associated with the trial :trialName
     - `POST` Creates a trial in the database named :trialName

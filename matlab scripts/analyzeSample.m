@@ -12,22 +12,23 @@ or = [1 .5 0];
 
 %% load data
 [cTempvec_control, Lvec_control, Rvec_control, Gvec_control, Bvec_control, Cvec_control] = textread('colorTest_control.txt','Color Temp: %f K - Lux: %f - R: %f G: %f B: %f C: %f');
-length_control = length(Rvec_control)
+%length_control = length(Rvec_control)
 
 [cTempvec_1ppm, Lvec_1ppm, Rvec_1ppm, Gvec_1ppm, Bvec_1ppm, Cvec_1ppm] = textread('colorTest_1ppm.txt','Color Temp: %f K - Lux: %f - R: %f G: %f B: %f C: %f');
-length_1ppm = length(Rvec_1ppm)
+%length_1ppm = length(Rvec_1ppm)
 
 [cTempvec_10ppm, Lvec_10ppm, Rvec_10ppm, Gvec_10ppm, Bvec_10ppm, Cvec_10ppm] = textread('colorTest_10ppm.txt','Color Temp: %f K - Lux: %f - R: %f G: %f B: %f C: %f');
-length_10ppm = length(Rvec_10ppm)
+%length_10ppm = length(Rvec_10ppm)
 
 [cTempvec_20ppm, Lvec_20ppm, Rvec_20ppm, Gvec_20ppm, Bvec_20ppm, Cvec_20ppm] = textread('colorTest_20ppm.txt','Color Temp: %f K - Lux: %f - R: %f G: %f B: %f C: %f');
-length_20ppm = length(Rvec_20ppm)
+%length_20ppm = length(Rvec_20ppm)
 
 [cTempvec_30ppm, Lvec_30ppm, Rvec_30ppm, Gvec_30ppm, Bvec_30ppm, Cvec_30ppm] = textread('colorTest_30ppm.txt','Color Temp: %f K - Lux: %f - R: %f G: %f B: %f C: %f');
-length_30ppm = length(Rvec_30ppm)
+%length_30ppm = length(Rvec_30ppm)
 
 [cTempvec_40ppm, Lvec_40ppm, Rvec_40ppm, Gvec_40ppm, Bvec_40ppm, Cvec_40ppm] = textread('colorTest_40ppm.txt','Color Temp: %f K - Lux: %f - R: %f G: %f B: %f C: %f');
-length_40ppm = length(Rvec_40ppm)
+%length_40ppm = length(Rvec_40ppm)
+
 
 %% plot against time
 cmap = colormap(hsv(6));
@@ -41,10 +42,11 @@ plot(Rvec_30ppm,'LineWidth',lw)
 plot(Rvec_40ppm,'LineWidth',lw)
 plot(Rvec_control,'LineWidth',lw)
 hold off
-xlabel('Time (sample)')
-ylabel('Red')
-title('Red Channel Readings over Time')
-legend('1ppm','10ppm','30ppm','40ppm','control')
+xlabel('Time (sample)','FontSize',axesSize)
+ylabel('Red','FontSize',axesSize)
+title('Red Channel Readings over Time','FontSize',titleSize)
+leg = legend('1ppm','10ppm','20ppm','30ppm','40ppm','control');
+set(leg,'FontSize',legSize)
 print('redVsTime','-dpng')
 
 figure
@@ -56,10 +58,11 @@ plot(Gvec_30ppm,'LineWidth',lw)
 plot(Gvec_40ppm,'LineWidth',lw)
 plot(Gvec_control,'LineWidth',lw)
 hold off
-xlabel('Time (sample)')
-ylabel('Green')
-title('Green Channel Readings over Time')
-legend('1ppm','10ppm','20ppm','30ppm','40ppm','control')
+xlabel('Time (sample)','FontSize',axesSize)
+ylabel('Green','FontSize',axesSize)
+title('Green Channel Readings over Time','FontSize',titleSize)
+leg = legend('1ppm','10ppm','20ppm','30ppm','40ppm','control');
+set(leg,'FontSize',legSize)
 print('greenVsTime','-dpng')
 
 figure
@@ -71,10 +74,11 @@ plot(Bvec_30ppm,'LineWidth',lw)
 plot(Bvec_40ppm,'LineWidth',lw)
 plot(Bvec_control,'LineWidth',lw)
 hold off
-xlabel('Time (sample)')
-ylabel('Blue')
-title('Blue Channel Readings over Time')
-legend('1ppm','10ppm','20ppm','30ppm','40ppm','control')
+xlabel('Time (sample)','FontSize',axesSize)
+ylabel('Blue','FontSize',axesSize)
+title('Blue Channel Readings over Time','FontSize',titleSize)
+leg = legend('1ppm','10ppm','20ppm','30ppm','40ppm','control');
+set(leg,'FontSize',legSize)
 print('blueVsTime','-dpng')
 
 figure
@@ -86,10 +90,11 @@ plot(Cvec_30ppm,'LineWidth',lw)
 plot(Cvec_40ppm,'LineWidth',lw)
 plot(Cvec_control,'LineWidth',lw)
 hold off
-xlabel('Time (sample)')
-ylabel('Clear')
-title('Clear Channel Readings over Time')
-legend('1ppm','10ppm','20ppm','30ppm','40ppm','control')
+xlabel('Time (sample)','FontSize',axesSize)
+ylabel('Clear','FontSize',axesSize)
+title('Clear Channel Readings over Time','FontSize',titleSize)
+leg = legend('1ppm','10ppm','20ppm','30ppm','40ppm','control');
+set(leg,'FontSize',legSize)
 print('clearVsTime','-dpng')
 
 
@@ -102,10 +107,11 @@ plot(cTempvec_30ppm,'LineWidth',lw)
 plot(cTempvec_40ppm,'LineWidth',lw)
 plot(cTempvec_control,'LineWidth',lw)
 hold off
-xlabel('Time (sample)')
-ylabel('Color Temp')
-title('Color Temperature Channel Readings over Time')
-legend('1ppm','10ppm','20ppm','30ppm','40ppm','control')
+xlabel('Time (sample)','FontSize',axesSize)
+ylabel('Color Temp','FontSize',axesSize)
+title('Color Temperature Channel Readings over Time','FontSize',titleSize)
+leg = legend('1ppm','10ppm','20ppm','30ppm','40ppm','control');
+set(leg,'FontSize',legSize)
 print('cTempVsTime','-dpng')
 
 figure
@@ -117,10 +123,11 @@ plot(Lvec_30ppm,'LineWidth',lw)
 plot(Lvec_40ppm,'LineWidth',lw)
 plot(Lvec_control,'LineWidth',lw)
 hold off
-xlabel('Time (sample)')
-ylabel('Lux')
-title('Lux Channel Readings over Time')
-legend('1ppm','10ppm','20ppm','30ppm','40ppm','control')
+xlabel('Time (sample)','FontSize',axesSize)
+ylabel('Lux','FontSize',axesSize)
+title('Lux Channel Readings over Time','FontSize',titleSize)
+leg = legend('1ppm','10ppm','20ppm','30ppm','40ppm','control');
+set(leg,'FontSize',legSize)
 print('luxVsTime','-dpng')
 
 %% calculate average reading for each sample over 100 measurements
@@ -257,68 +264,108 @@ errorL = [errorL_control, errorL_1ppm, errorL_10ppm, errorL_20ppm, errorL_30ppm,
 
 figure
 errorbar(conc,R,errorR,'ro-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Red Channel')
+xlabel('Concentration (ppm)','FontSize',axesSize)
+ylabel('Average Reading','FontSize',axesSize)
+title('Red Channel','FontSize',titleSize)
 print('redVsConc','-dpng')
 
 figure
 e = errorbar(conc,G,errorG,'o-','LineWidth',lw);
 e.Color = dg;
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Green Channel')
+xlabel('Concentration (ppm)','FontSize',axesSize)
+ylabel('Average Reading','FontSize',axesSize)
+title('Green Channel','FontSize',titleSize)
 print('greenVsConc','-dpng')
 
 
 figure
 errorbar(conc,B,errorB,'bo-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Blue Channel')
+xlabel('Concentration (ppm)','FontSize',axesSize)
+ylabel('Average Reading','FontSize',axesSize)
+title('Blue Channel','FontSize',titleSize)
 print('blueVsConc','-dpng')
 
 
 figure
 errorbar(conc,C,errorC,'co-','LineWidth',lw)
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Clear Channel')
+xlabel('Concentration (ppm)','FontSize',axesSize)
+ylabel('Average Reading','FontSize',axesSize)
+title('Clear Channel','FontSize',titleSize)
 print('clearVsConc','-dpng')
 
 figure
 errorbar(conc,L,errorL,'mo-','LineWidth',lw)
 xlabel('Concentration (ppm)','FontSize',axesSize)
 ylabel('Average Reading','FontSize',axesSize)
-title('Lux Channel','FontSize',axesSize)
+title('Lux Channel','FontSize',titleSize)
 print('luxVsConc','-dpng')
 
 figure
 e = errorbar(conc,cTemp,errorcTemp,'o-','LineWidth',lw);
-e.Color = o;
-xlabel('Concentration (ppm)')
-ylabel('Average Reading')
-title('Color Temperature Channel')
+e.Color = or;
+xlabel('Concentration (ppm)','FontSize',axesSize)
+ylabel('Average Reading','FontSize',axesSize)
+title('Color Temperature Channel','FontSize',titleSize)
 print('colorTempVsConc','-dpng')
 
 
 %% calibrate - weigh channels according to average difference between sample points
-chiR = getChiSquared(R);
-chiG = getChiSquared(G);
-chiB = getChiSquared(B);
-chiC = getChiSquared(C);
+% chiR = getChiSquared(R);
+% chiG = getChiSquared(G);
+% chiB = getChiSquared(B);
+% chiC = getChiSquared(C);
+% chiArray = [chiR chiG chiB chiC];
+% weights = sort(chiArray./max(chiArray))
+channels = [R;G;B;C];
+errorChannels = [errorR;errorG;errorB;errorC];
+[r c ] = size(channels);
+slopes = zeros(1,r);
+for i = 1:r
+    P = polyfit(conc,channels(i,:),1);
+    slopes(i) = P(1);
+    figure
+    concModel = 1:.01:max(conc);
+    channelModel = polyval(P,concModel);
+    plot(conc,channels(i,:),'-',concModel,channelModel,'--')
+end
+slopes = sort(slopes);
+weights = abs(slopes./min(slopes));
 
+% plot weighted channel graph
+weightedChannels = zeros(1,length(conc));
+squaredError = zeros(1,length(conc));
+for i = 1:length(weights)
+    weightedChannels = weightedChannels + (channels(i,:).*weights(i));
+    squaredError = squaredError + ((errorChannels(i,:).^2).*(weights(i).^2));
+end
+errorWeighted = sqrt(squaredError);
+figure
+e = errorbar(conc,weightedChannels,errorWeighted,'o-','LineWidth',lw);
+xlabel('Concentration (ppm)','FontSize',axesSize)
+ylabel('Weighted Readings','FontSize',axesSize)
+title('Weighted Readings vs. Conc','FontSize',titleSize)
+
+finalFit = polyfit(conc,weightedChannels,1);
 
 %% interpolate for new data point
 
-trialName = 'derp';
+trialName = 'BOOP';
 url = sprintf('https://team-hydra-ii.herokuapp.com/api/trial/%s',trialName);
 data = webread(url);
-R_samp = [data(:).R];
-G_samp = [data(:).G];
-B_samp = [data(:).B];
-colorTemp_samp = [data(:).ColorTemp];
-lux_samp = data.lux;
+R_samp = zeros(size(data));
+G_samp = zeros(size(data));
+B_samp = zeros(size(data));
+C_samp = zeros(size(data));
+colorTemp_samp = zeros(size(data));
+lux_samp = zeros(size(data));
+for i = 1:length(data)
+    R_samp(i) = data{i}.R;
+    G_samp(i) = data{i}.G;
+    B_samp(i) = data{i}.B;
+    C_samp(i) = data{i}.C;
+    colorTemp_samp(i) = data{i}.ColorTemp;
+    lux_samp(i) = data{i}.lux;
+end
 
 figure
 plot(R_samp,'LineWidth',lw)

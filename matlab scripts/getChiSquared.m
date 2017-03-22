@@ -1,8 +1,9 @@
 function[chi] = getChiSquared(x)
 
+chiSum = 0;
 for i = 1:length(x)
     for j = 1:length(x)
-        sum = sum + (x(i) - x(j)).^2;
+        chiSum = chiSum + (x(i) - x(j)).^2;
     end
 end
-chi = sum;
+chi = chiSum;

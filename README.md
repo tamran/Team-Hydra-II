@@ -45,8 +45,11 @@ __NOTE__ that there are two different types of routes - ReactRouter routes, and 
 
 - DataCollection.iso
   - `void collectData(String experiment, int numExperiments)`
-    - Takes measurements using the color sensor, and posts the measurements to the database
-      - When WiFi isn't available, these measurements are added to a buffer, and POSTed when WiFi becomes available again
+    - Takes measurements using the color sensors and the metal rods, and posts the measurements to the database
+      - When WiFi isn't available, these measurements are added to a buffer queue, and POSTed when WiFi becomes available again
+      - Otherwise, the data is posted as it is collected
+      - Note that, in the current setup, each type of measurement is _collected_, but not necessarily _posted_, atomically
+        - all of color -> all of turbidity -> all of electrochemical
   - `int createTrial(String trial)`
     - Creates a new trial in the database
     - Returns the HTTP response code (success == 200)

@@ -91,7 +91,7 @@ In order to run our code, the following packages must be available to the Arduin
   - If the response has a body (i.e. is not {})
     - Make a POST request to /api/trial/:trialName (where :trialName is the `experimentName` field in the response body of the previous GET request) to create a new trial called :trialName in the database
     - The number of times to run the experiment is specified in the response body of the GET request, in the field `numExperiments`
-    - For each measurement that you take, make a POST request to /api/measurement/:trialName, where the body of the post request contains all of the measurement information
+    - For each measurement that you take, make a POST request to /api/measurement/color/:trialName, where the body of the post request contains all of the measurement information
     - Once the requested number of measurements have been taken, make a GET request to /api/clearExperiment to clear the requested experiment that you just completed
     
 ## To communicate with the API over command line:
@@ -103,7 +103,7 @@ In order to run our code, the following packages must be available to the Arduin
 - To create a new trial in the database:
   - `curl --data "" team-hydra-ii.herokuapp.com/api/trial/TRIALNAME`
 - To add a measurement to this trial name:
-  - `curl --data "R=2&G=3&B=4&C=5&ColorTemp=6&lux=7" team-hydra-ii.herokuapp.com/api/measurement/TRIALNAME`
+  - `curl --data "R=2&G=3&B=4&C=5&ColorTemp=6&lux=7" team-hydra-ii.herokuapp.com/api/measurement/color/TRIALNAME`
 - To clear the new experiment flag once the experiment has completed:
   - `curl team-hydra-ii.herokuapp.com/api/clearExperiment`
 

@@ -7,7 +7,8 @@
 
 - From the _web client_
   - Request for a new trial to be started with a given turbidity, concentration, and number of trials
-    - __NOTE THAT THE CURRENT MAX NUMBER OF TRIALS IS 5000.__ If this number is exceeded, only the first 5000 measurements will be posted.
+    - __NOTE THAT THE CURRENT MAX NUMBER OF TRIALS IS 30.__ If this number is exceeded, only the first 5000 measurements will be posted.
+    - This number was chosen as the maximum buffer size that avoids out-of-memory errors
   - View when the last posted measurement was taken
     - __NOTE__ that when the client is first opened, the last posted measurement will be N/A.  When the next measurement is posted to the database, the time will be updated accordingly
   - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor"

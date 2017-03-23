@@ -7,6 +7,7 @@
 
 - From the _web client_
   - Request for a new trial to be started with a given turbidity, concentration, and number of trials
+    - __NOTE THAT THE CURRENT MAX NUMBER OF TRIALS IS 5000.__ If this number is exceeded, only the first 5000 measurements will be posted.
   - View when the last posted measurement was taken
     - __NOTE__ that when the client is first opened, the last posted measurement will be N/A.  When the next measurement is posted to the database, the time will be updated accordingly
   - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor"
@@ -30,8 +31,12 @@
   - /api/trial/:trialName
     - `GET` Returns the measurements associated with the trial :trialName
     - `POST` Creates a trial in the database named :trialName
-  - /api/measurement/:trialName
+  - /api/measurement/:type/:trialName
     - `POST` Saves the data stored in the request body to a new measurement in the specified :trialName
+      - :type must be one of
+        - color
+        - turbidity
+        - electrochemical
       - When the measurement has been posted to the database, the server notifies the web client that a new measurement has been placed in the database
 
 __NOTE__ that there are two different types of routes - ReactRouter routes, and routes that the server accepts.  For example, there are `/experiment` and `/data` ReactRouter routes that appear when navigating to different tabs on the website. However, reloading the webpage at these routes will result in a _Cannot GET /ROUTE_NAME_.  This is because these are client-side routes only, and thus do not exist on the server side.  I am currently working on a way around this, so that reloading the webpage at one of these routes does not result in the _Cannot GET_ message.
@@ -40,8 +45,11 @@ __NOTE__ that there are two different types of routes - ReactRouter routes, and 
 
 - DataCollection.iso
   - `void collectData(String experiment, int numExperiments)`
-    - Takes measurements using the color sensor, and posts the measurements to the database
-      - When WiFi isn't available, these measurements are added to a buffer, and POSTed when WiFi becomes available again
+    - Takes measurements using the color sensors and the metal rods, and posts the measurements to the database
+      - When WiFi isn't available, these measurements are added to a buffer queue, and POSTed when WiFi becomes available again
+      - Otherwise, the data is posted as it is collected
+      - Note that, in the current setup, each type of measurement is _collected_, but not necessarily _posted_, atomically
+        - all of color -> all of turbidity -> all of electrochemical
   - `int createTrial(String trial)`
     - Creates a new trial in the database
     - Returns the HTTP response code (success == 200)

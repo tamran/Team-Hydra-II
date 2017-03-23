@@ -11,8 +11,16 @@ export const colorMeasurementSchema = Schema({
     time: { type: Date, default: Date.now },
 });
 
-export const trialDataSchema = Schema({
-    name: String,
-    colorMeasurements: [{type: Schema.Types.ObjectId, ref: 'ColorMeasurement'}],
+export const electrochemicalMeasurementSchema = Schema({
+    StainlessSteel: Number,
+    Aluminum: Number,
+    Titanium: Number, 
 })
 
+export const trialDataSchema = Schema({
+    name: String,
+    time: { type: Date, default: Date.now },
+    colorMeasurements: [{type: Schema.Types.ObjectId, ref: 'ColorMeasurement'}],
+    turbidityMeasurements: [{type: Schema.Types.ObjectId, ref: 'ColorMeasurement'}],
+    electrochemicalMeasurements: [{type: Schema.Types.ObjectId, ref: 'ElectrochemicalMeasurement'}],
+})

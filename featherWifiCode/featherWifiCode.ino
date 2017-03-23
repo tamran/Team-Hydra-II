@@ -35,7 +35,7 @@ void loop(void) {
       createTrial(experiment);
       Serial.println("Trial created");
       Serial.println("Pausing...");
-      //delay(20000);
+      //delay(10000);
       Serial.println("Starting to collect data");
       collectData(experiment, numExperiments, tcs);
       get("/api/clearExperiment");

@@ -1,5 +1,5 @@
 #include <aJSON.h>
-#define MAX_ARRAY_SIZE 5000
+#define MAX_ARRAY_SIZE 30
 
 /**
    Creates the Trial requested
@@ -20,18 +20,18 @@ void attemptToPostUnsavedMeasurements(String experiment, String type, aJsonObjec
   while (bufFRONT <= bufEND) {
     if (buf[bufFRONT] == nullptr) {
       bufFRONT++;
-      continue;
-    }
-    int httpCode = postMeasurement(experiment, type, buf[bufFRONT]);
-    if (httpCode == 200) { // pop off the stack
-      Serial.println("Send data was successful");
-      buf[bufFRONT++] = nullptr;
     } else {
-      if (waitToConnect) { // keep trying to post this measurement until we find WiFi
-        while (connectToWiFi() == -1) { //wait to connect
+      int httpCode = postMeasurement(experiment, type, buf[bufFRONT]);
+      if (httpCode == 200) { // pop off the stack
+        Serial.println("Send data was successful");
+        buf[bufFRONT++] = nullptr;
+      } else {
+        if (waitToConnect) { // keep trying to post this measurement until we find WiFi
+          while (connectToWiFi() == -1) { //wait to connect
+          }
+        } else {  // we can't post now, wait till later
+          break;
         }
-      } else {  // we can't post now, wait till later
-        break;
       }
     }
   }
@@ -41,13 +41,17 @@ void performMainDataCollection(String experiment, String type, aJsonObject * (&b
   int bufFRONT = 0;
   int bufEND = -1;
 
-  for (int i = 0; i < min(numExperiments, MAX_ARRAY_SIZE); ++i) {
+  for (int i = 0; i < numExperiments; ++i) {
     aJsonObject* meas = collect(tcs);
     buf[++bufEND] = meas;
     attemptToPostUnsavedMeasurements(experiment, type, buf, bufFRONT, bufEND, false);
   }
 }
 
+void resetIndices(int& front, int fval, int& back, int bval) {
+  front = fval;
+  back = bval;
+}
 
 /**
    Collects the requested number of measurements
@@ -56,21 +60,31 @@ void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs) {
   aJsonObject* colorBuf[MAX_ARRAY_SIZE];
   aJsonObject* turbidityBuf[MAX_ARRAY_SIZE];
   aJsonObject* electrochemBuf[MAX_ARRAY_SIZE];
-  
+
+  numExperiments = min(numExperiments, MAX_ARRAY_SIZE);
+
   //Collect the data, and post if WiFi is available
+  Serial.println("color");
   performMainDataCollection(experiment, "color", colorBuf, numExperiments, tcs, takeColorMeasurement);
+  Serial.println("turbidity");
   performMainDataCollection(experiment, "turbidity", turbidityBuf, numExperiments, tcs, takeTurbidityMeasurement);
+  Serial.println("electrochemical");
   performMainDataCollection(experiment, "electrochemical", electrochemBuf, numExperiments, tcs, takeElectrochemicalMeasurement);
 
 
   Serial.println("Waiting to send data");
-  int beginOfArray = 0;
-  int endOfArray = MAX_ARRAY_SIZE-1;
+  int beginOfArray, endOfArray;
 
   //Keep trying to post till everything is gone
   //For simplicity, we'll just look at the entire array instead of keeping track of the beginning and end of it
+  Serial.println("color");
+  resetIndices(beginOfArray,0,endOfArray,numExperiments-1);
   attemptToPostUnsavedMeasurements(experiment, "color", colorBuf, beginOfArray, endOfArray, true);
+  Serial.println("turbidity");
+  resetIndices(beginOfArray,0,endOfArray,numExperiments-1);
   attemptToPostUnsavedMeasurements(experiment, "turbidity", turbidityBuf, beginOfArray, endOfArray, true);
+  Serial.println("electrochemical");
+  resetIndices(beginOfArray,0,endOfArray,numExperiments-1);
   attemptToPostUnsavedMeasurements(experiment, "electrochemical", electrochemBuf, beginOfArray, endOfArray, true);
 }
 

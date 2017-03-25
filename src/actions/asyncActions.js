@@ -1,4 +1,4 @@
-import { requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement } from './actions';
+import { requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement, changeFilter, clearTrials } from './actions';
 import fetch from 'isomorphic-fetch';
 
 const experimentInfoIsValid = (experimentInfoMap) => {
@@ -34,18 +34,35 @@ export const createExperiment = () => {
 }
 
 export const loadAllTrialData = () => {
-    return (dispatch) => {
-        return fetch('/api/trials')
+    return (dispatch, getState) => {
+        return fetch(`/api/trials?filter=${getState().allExperimentInfo.filter}`)
         .then(res => res.json())
         .then(json => json.forEach(trialName => {
-                dispatch(createNewTrial(trialName))
-                fetch(`/api/trial/${trialName}`)
-                    .then(res => res.json())
-                    .then(json => json.forEach(measurement => {
-                        dispatch(createNewMeasurement(trialName, measurement));
-                    }))
+            dispatch(createNewTrial(trialName))
+            fetch(`/api/trial/${trialName}`)
+                .then(res => res.json())
+                .then(json => {
+                    json.colorMeasurements.forEach(measurement => {
+                        dispatch(createNewMeasurement(trialName, measurement,'color'));
+                    })
+                    json.turbidityMeasurements.forEach(measurement => {
+                        dispatch(createNewMeasurement(trialName, measurement,'turbidity'));
+                    })
+                    json.electrochemicalMeasurements.forEach(measurement => {
+                        dispatch(createNewMeasurement(trialName, measurement,'electrochemical'));
+                    })
+                })
             })
         )
         .then(Promise.resolve())
+    }
+}
+
+export const filterTrials = (newFilter) => {
+    return (dispatch) => {
+        dispatch(changeFilter(newFilter));
+        dispatch(clearTrials());
+        dispatch(loadAllTrialData());
+        return Promise.resolve();
     }
 }

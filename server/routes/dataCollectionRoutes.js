@@ -25,25 +25,25 @@ let dataCollection = (app) => {
             saveColorMeasurement(req.params.trialName,measurement)
             measurement.name = req.params.trialName;
             measurement.time = getCurrentTime();
-            emitter(measurement);
+            emitter(measurement, 'color');
             res.end();
         })
     app.route('/api/measurement/turbidity/:trialName')
         .post((req,res) => {
             let measurement = req.body;
             saveTurbidityMeasurement(req.params.trialName,measurement)
-            //measurement.name = req.params.trialName;
-            //measurement.time = getCurrentTime();
-            //emitter(measurement);
+            measurement.name = req.params.trialName;
+            measurement.time = getCurrentTime();
+            emitter(measurement, 'turbidity');
             res.end();
         })
     app.route('/api/measurement/electrochemical/:trialName')
         .post((req,res) => {
             let measurement = req.body;
             saveElectrochemicalMeasurement(req.params.trialName,measurement)
-            //measurement.name = req.params.trialName;
-            //measurement.time = getCurrentTime();
-            //emitter(measurement);
+            measurement.name = req.params.trialName;
+            measurement.time = getCurrentTime();
+            emitter(measurement, 'electrochemical');
             res.end();
         })
 }

@@ -41,7 +41,7 @@ const trialInfo = (state={
     }
 }
 
-const allExperimentInfo = (state={}, action) => {
+const allExperiments = (state={}, action) => {
     switch(action.type) {
         case ActionTypes.CREATE_NEW_TRIAL:
         case ActionTypes.CREATE_NEW_MEASUREMENT:
@@ -49,8 +49,28 @@ const allExperimentInfo = (state={}, action) => {
                 ...state,
                 [action.name]: trialInfo(state[action.name], action), 
             }
+        case ActionTypes.CLEAR_TRIALS:
+            return {}
         default:
             return state;
+    }
+}
+
+const allExperimentInfo = (state={
+    allExperiments: undefined,
+    filter: '',
+}, action) => {
+    switch(action.type) {
+        case ActionTypes.CHANGE_FILTER:
+            return {
+                ...state,
+                filter: action.filter,
+            }
+        default:
+            return {
+                ...state,
+                allExperiments: allExperiments(state.allExperiments, action),
+            }
     }
 }
 

@@ -34,3 +34,11 @@ export const createNewMeasurement = (trialName, measurement) => ({
     name: trialName,
     measurement: measurement,
 })
+
+export const changeFilter = (newFilter) => ({
+    type: ActionTypes.CHANGE_FILTER,
+    filter: newFilter
+})
+export const clearTrials = () => ({
+    type: ActionTypes.CLEAR_TRIALS,
+})

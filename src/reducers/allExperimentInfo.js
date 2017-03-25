@@ -9,13 +9,20 @@ const measurement = (state, action) => {
     }
 }
 
-const measurements = (state=[], action) => {
+const measurements = (state={
+    color: [],
+    turbidity: [],
+    electrochemical: [],
+}, action) => {
     switch(action.type) {
         case ActionTypes.CREATE_NEW_MEASUREMENT:
-            return [
+            return {
                 ...state,
-                measurement(undefined, action),
-            ]
+                [action.measurementType]: [
+                    ...state[action.measurementType],
+                    measurement(undefined, action),
+                ]
+            }
         default:
             return state;
     }
@@ -37,7 +44,10 @@ const trialInfo = (state={
                 measurements: measurements(state.measurements, action),
             }
         default:
-            return state;
+            return {
+                ...state,
+                measurements: measurement(state.measurements, action)
+            };
     }
 }
 

@@ -11,8 +11,9 @@ export const changeNewExperimentText = (textFieldId, changedText) => ({
     text: changedText,
 })
 
-export const updateLastMeasurement = (measurement) => ({
+export const updateLastMeasurement = (measurement, measType) => ({
     type: ActionTypes.UPDATE_LATEST_MEASUREMENT,
+    measurementType: measType,
     measurement: measurement,
 })
 
@@ -29,10 +30,11 @@ export const createNewTrial = (trialName) => ({
     name: trialName,
 })
 
-export const createNewMeasurement = (trialName, measurement) => ({
+export const createNewMeasurement = (trialName, measurement, measType) => ({
     type: ActionTypes.CREATE_NEW_MEASUREMENT,
     name: trialName,
     measurement: measurement,
+    measurementType: measType,
 })
 
 export const changeFilter = (newFilter) => ({

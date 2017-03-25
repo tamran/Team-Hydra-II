@@ -3,7 +3,9 @@ import ExperimentMeasurementList from '../components/ExperimentMeasurementList';
 
 const mapStateToProps = (state) => ({
     name: state.currentExperiment.name,
-    measurements: state.currentExperiment.measurements,
+    colorMeasurements: state.currentExperiment.measurements.color,
+    turbidityMeasurements: state.currentExperiment.measurements.turbidity,
+    electrochemicalMeasurements: state.currentExperiment.measurements.electrochemical,
 })
 
 const VisibleExperimentMeasurementList = connect(

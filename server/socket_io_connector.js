@@ -3,9 +3,9 @@ import io from 'socket.io';
 
 let connections = [];
 
-export const emitter = (measurement) => {
+export const emitter = (measurement, type) => {
     connections.forEach( connectedSocket => {
-        connectedSocket.emit('measurement', measurement);
+        connectedSocket.emit('measurement', measurement, type);
     });
 }
 

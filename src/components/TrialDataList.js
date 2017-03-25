@@ -8,7 +8,10 @@ const TrialDataList = ({ allExperimentInfo }) => (
             <Trial 
                 key={index} 
                 name={trialName} 
-                measurements={allExperimentInfo[trialName].measurements} />
+                colorMeasurements={allExperimentInfo[trialName].measurements.color} 
+                turbidityMeasurements={allExperimentInfo[trialName].measurements.turbidity} 
+                electrochemicalMeasurements={allExperimentInfo[trialName].measurements.electrochemical} 
+            />
         )}
     </ListGroup>
 )

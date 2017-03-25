@@ -22,7 +22,7 @@ export const getTrial = (trialName, res) => {
                 res.end();
                 return;
             }
-            res.send(trial.colorMeasurements);
+            res.send(trial);
         })
 }
 

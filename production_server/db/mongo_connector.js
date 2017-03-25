@@ -33,7 +33,7 @@ var getTrial = exports.getTrial = function getTrial(trialName, res) {
             res.end();
             return;
         }
-        res.send(trial.colorMeasurements);
+        res.send(trial);
     });
 };
 

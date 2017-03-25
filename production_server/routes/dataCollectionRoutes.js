@@ -28,23 +28,23 @@ var dataCollection = function dataCollection(app) {
         (0, _mongo_connector.saveColorMeasurement)(req.params.trialName, measurement);
         measurement.name = req.params.trialName;
         measurement.time = getCurrentTime();
-        (0, _socket_io_connector.emitter)(measurement);
+        (0, _socket_io_connector.emitter)(measurement, 'color');
         res.end();
     });
     app.route('/api/measurement/turbidity/:trialName').post(function (req, res) {
         var measurement = req.body;
         (0, _mongo_connector.saveTurbidityMeasurement)(req.params.trialName, measurement);
-        //measurement.name = req.params.trialName;
-        //measurement.time = getCurrentTime();
-        //emitter(measurement);
+        measurement.name = req.params.trialName;
+        measurement.time = getCurrentTime();
+        (0, _socket_io_connector.emitter)(measurement, 'turbidity');
         res.end();
     });
     app.route('/api/measurement/electrochemical/:trialName').post(function (req, res) {
         var measurement = req.body;
         (0, _mongo_connector.saveElectrochemicalMeasurement)(req.params.trialName, measurement);
-        //measurement.name = req.params.trialName;
-        //measurement.time = getCurrentTime();
-        //emitter(measurement);
+        measurement.name = req.params.trialName;
+        measurement.time = getCurrentTime();
+        (0, _socket_io_connector.emitter)(measurement, 'electrochemical');
         res.end();
     });
 };

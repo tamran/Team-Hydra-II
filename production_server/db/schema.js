@@ -26,7 +26,8 @@ var colorMeasurementSchema = exports.colorMeasurementSchema = Schema({
 var electrochemicalMeasurementSchema = exports.electrochemicalMeasurementSchema = Schema({
     StainlessSteel: Number,
     Aluminum: Number,
-    Titanium: Number
+    Titanium: Number,
+    time: { type: Date, default: Date.now }
 });
 
 var trialDataSchema = exports.trialDataSchema = Schema({

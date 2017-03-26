@@ -46,7 +46,7 @@ const currentExperiment = (state={
         default:
             return {
                 ...state,
-                measurements: updateMeasurements(undefined, action),
+                measurements: updateMeasurements(state.measurements, action),
             }
     }
 }

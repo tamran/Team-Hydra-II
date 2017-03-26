@@ -15,6 +15,7 @@ export const electrochemicalMeasurementSchema = Schema({
     StainlessSteel: Number,
     Aluminum: Number,
     Titanium: Number, 
+    time: { type: Date, default: Date.now },
 })
 
 export const trialDataSchema = Schema({

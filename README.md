@@ -3,7 +3,7 @@
 ## To access the currently live version of the app:
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
-## The simplified architecture of this application is:
+## The simplified communication model of this application is:
 ![Application Architecture](https://raw.github.com/tamran/Team-Hydra-II/master/diagrams/AppArchitecture.png)
 
 ## Currently available features on live version:

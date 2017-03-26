@@ -12,9 +12,10 @@
   - Request for a new trial to be started with a given turbidity, concentration, and number of trials
     - __NOTE THAT THE CURRENT MAX NUMBER OF TRIALS IS 30.__ If this number is exceeded, only the first 30 measurements will be posted.
     - This number was chosen as the maximum buffer size that avoids out-of-memory errors
+    - _We should run some experiments to see if reducing the measurement frequency will work for our experiments._ If not, we'll need to 1) try to remove any memory leaks in the Arduino code and/or 2) get a microSD for the Feather HUZZAH.
   - View when the last posted measurement was taken
     - __NOTE__ that when the client is first opened, the last posted measurement will be N/A.  When the next measurement is posted to the database, the time will be updated accordingly
-  - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor"
+  - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor." Currently, you can view the Color, Turbidity, and Electrochemical measurements, as they're being taken
   - Clicking the `Trial Data` navigation item displays a list of all conducted Trials.  
     - You can click on the trial name to see all measurements associated with the selected trial.
     - Typing a string into the Filter search box filters the experiments displayed on the screen by the query substring

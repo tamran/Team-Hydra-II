@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.trialDataSchema = exports.colorMeasurementSchema = undefined;
+exports.trialDataSchema = exports.electrochemicalMeasurementSchema = exports.colorMeasurementSchema = undefined;
 
 var _mongoose = require('mongoose');
 
@@ -17,12 +17,23 @@ var colorMeasurementSchema = exports.colorMeasurementSchema = Schema({
     R: Number,
     G: Number,
     B: Number,
+    C: Number,
     ColorTemp: Number,
     lux: Number,
     time: { type: Date, default: Date.now }
 });
 
+var electrochemicalMeasurementSchema = exports.electrochemicalMeasurementSchema = Schema({
+    StainlessSteel: Number,
+    Aluminum: Number,
+    Titanium: Number,
+    time: { type: Date, default: Date.now }
+});
+
 var trialDataSchema = exports.trialDataSchema = Schema({
     name: String,
-    colorMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ColorMeasurement' }]
+    time: { type: Date, default: Date.now },
+    colorMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ColorMeasurement' }],
+    turbidityMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ColorMeasurement' }],
+    electrochemicalMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ElectrochemicalMeasurement' }]
 });

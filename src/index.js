@@ -11,8 +11,8 @@ import startPushNotifications, { pushNotificationsMiddleware } from './custom_mi
 import { customRoutingMiddleware } from './custom_middleware/custom_routing';
 
 import WelcomePage from './components/WecomePage';
-import VisibleExperimentMeasurementList from './containers/VisibleExperimentMeasurementList';
-import VisibleTrialDataList from './containers/VisibleTrialDataList';
+import ExperimentStatusPage from './components/ExperimentStatusPage';
+import TrialDataPage from './components/TrialDataPage';
 import { changeLocation } from './actions/actions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -30,8 +30,8 @@ render(
         <Router history={history}>
             <Route path="/" component={App}>
                 <IndexRoute component={WelcomePage} />
-                <Route path="experiment" component={VisibleExperimentMeasurementList} />
-                <Route path="data" component={VisibleTrialDataList} />
+                <Route path="experiment" component={ExperimentStatusPage} />
+                <Route path="data" component={TrialDataPage} />
             </Route>
         </Router>
     </Provider>,

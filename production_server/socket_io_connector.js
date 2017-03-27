@@ -15,9 +15,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var connections = [];
 
-var emitter = exports.emitter = function emitter(measurement) {
+var emitter = exports.emitter = function emitter(measurement, type) {
     connections.forEach(function (connectedSocket) {
-        connectedSocket.emit('measurement', measurement);
+        connectedSocket.emit('measurement', measurement, type);
     });
 };
 

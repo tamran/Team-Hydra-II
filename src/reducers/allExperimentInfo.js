@@ -9,13 +9,20 @@ const measurement = (state, action) => {
     }
 }
 
-const measurements = (state=[], action) => {
+const measurements = (state={
+    color: [],
+    turbidity: [],
+    electrochemical: [],
+}, action) => {
     switch(action.type) {
         case ActionTypes.CREATE_NEW_MEASUREMENT:
-            return [
+            return {
                 ...state,
-                measurement(undefined, action),
-            ]
+                [action.measurementType]: [
+                    ...state[action.measurementType],
+                    measurement(undefined, action),
+                ]
+            }
         default:
             return state;
     }
@@ -37,11 +44,14 @@ const trialInfo = (state={
                 measurements: measurements(state.measurements, action),
             }
         default:
-            return state;
+            return {
+                ...state,
+                measurements: measurement(state.measurements, action)
+            };
     }
 }
 
-const allExperimentInfo = (state={}, action) => {
+const allExperiments = (state={}, action) => {
     switch(action.type) {
         case ActionTypes.CREATE_NEW_TRIAL:
         case ActionTypes.CREATE_NEW_MEASUREMENT:
@@ -49,8 +59,28 @@ const allExperimentInfo = (state={}, action) => {
                 ...state,
                 [action.name]: trialInfo(state[action.name], action), 
             }
+        case ActionTypes.CLEAR_TRIALS:
+            return {}
         default:
             return state;
+    }
+}
+
+const allExperimentInfo = (state={
+    allExperiments: undefined,
+    filter: '',
+}, action) => {
+    switch(action.type) {
+        case ActionTypes.CHANGE_FILTER:
+            return {
+                ...state,
+                filter: action.filter,
+            }
+        default:
+            return {
+                ...state,
+                allExperiments: allExperiments(state.allExperiments, action),
+            }
     }
 }
 

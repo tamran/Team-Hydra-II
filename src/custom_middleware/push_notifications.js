@@ -18,8 +18,9 @@ export const pushNotificationsMiddleware = store => next => action => {
 
 export default function(store) {
     socket = io.connect();
-
-    socket.on('measurement', measurementTime => {
-        store.dispatch(updateLastMeasurement(measurementTime))
+    socket.on('measurement', (measurement, type) => {
+        console.log(measurement)
+        console.log(type)
+        store.dispatch(updateLastMeasurement(measurement, type))
     })
 }

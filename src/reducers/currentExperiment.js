@@ -11,13 +11,21 @@ const measurement= (state, action) => {
     }
 }
 
-const updateMeasurements = (state, action) => {
+const updateMeasurements = (state={
+        color: [],
+        turbidity: [],
+        electrochemical: [],
+    }, action) => {
     switch(action.type) {
         case ActionTypes.UPDATE_LATEST_MEASUREMENT:
-            return [
+            return {
                 ...state,
-                measurement(undefined, action)
-            ]
+                [action.measurementType]: 
+                    [
+                        ...state[action.measurementType],
+                        measurement(undefined, action),
+                    ]
+            }        
         default:
             return state;
     }
@@ -26,7 +34,7 @@ const updateMeasurements = (state, action) => {
 const currentExperiment = (state={
     message: 'Last measurement',
     lastReadingTime: 'N/A',
-    measurements: [],
+    measurements: undefined,
 }, action) => {
     switch(action.type) {
         case ActionTypes.UPDATE_LATEST_MEASUREMENT:
@@ -36,7 +44,10 @@ const currentExperiment = (state={
                 measurements: updateMeasurements(state.measurements, action)
             }
         default:
-            return state;
+            return {
+                ...state,
+                measurements: updateMeasurements(state.measurements, action),
+            }
     }
 }
 

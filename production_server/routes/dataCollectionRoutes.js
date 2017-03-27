@@ -15,7 +15,7 @@ var getCurrentTime = function getCurrentTime() {
 
 var dataCollection = function dataCollection(app) {
     app.route('/api/trials').get(function (req, res) {
-        (0, _mongo_connector.getAllTrials)(res);
+        (0, _mongo_connector.getAllTrials)(req.query.filter, res);
     });
     app.route('/api/trial/:trialName').get(function (req, res) {
         (0, _mongo_connector.getTrial)(req.params.trialName, res);
@@ -23,12 +23,28 @@ var dataCollection = function dataCollection(app) {
         (0, _mongo_connector.createTrial)(req.params.trialName);
         res.end();
     });
-    app.route('/api/measurement/:trialName').post(function (req, res) {
+    app.route('/api/measurement/color/:trialName').post(function (req, res) {
         var measurement = req.body;
-        (0, _mongo_connector.saveMeasurement)(req.params.trialName, measurement);
+        (0, _mongo_connector.saveColorMeasurement)(req.params.trialName, measurement);
         measurement.name = req.params.trialName;
         measurement.time = getCurrentTime();
-        (0, _socket_io_connector.emitter)(measurement);
+        (0, _socket_io_connector.emitter)(measurement, 'color');
+        res.end();
+    });
+    app.route('/api/measurement/turbidity/:trialName').post(function (req, res) {
+        var measurement = req.body;
+        (0, _mongo_connector.saveTurbidityMeasurement)(req.params.trialName, measurement);
+        measurement.name = req.params.trialName;
+        measurement.time = getCurrentTime();
+        (0, _socket_io_connector.emitter)(measurement, 'turbidity');
+        res.end();
+    });
+    app.route('/api/measurement/electrochemical/:trialName').post(function (req, res) {
+        var measurement = req.body;
+        (0, _mongo_connector.saveElectrochemicalMeasurement)(req.params.trialName, measurement);
+        measurement.name = req.params.trialName;
+        measurement.time = getCurrentTime();
+        (0, _socket_io_connector.emitter)(measurement, 'electrochemical');
         res.end();
     });
 };

@@ -5,7 +5,7 @@ let setCurrentExperiment = (body) => {
     const conc = body['Concentration'].text;
     const numExperiments = body['Number of Measurements'].text;
     const currentTime = new Date().toISOString()
-    const experimentName = turbidity + conc + numExperiments + currentTime;
+    const experimentName = `turbidity_${turbidity}_concentration_${conc}_numExperiments_${numExperiments}_time_${currentTime}`;
 
     experimentData = {
         turbidity: turbidity,

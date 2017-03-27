@@ -11,6 +11,7 @@ To collect and process colorimetry data **without** pulling from the database, o
 * **[type]**: 'color' for testing various concentrations; 'turbidity' for testing various turbidities.
 * **[val]**: the actual concentration or turbidity of the sample you're testing
 * **[unit]**: ppm for concentration, ntu for turbidity
+
 Example: 'colorTest_10ppm.txt'
 
 ### Processing in MATLAB

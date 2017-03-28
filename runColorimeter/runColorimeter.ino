@@ -19,8 +19,7 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS347
 int LED_PIN = 13;
 
 
-
-void getColorReading(int n){
+void getColorReadings(int n){
   uint16_t r, g, b, c, colorTemp, lux;
   
   tcs.getRawData(&r, &g, &b, &c);
@@ -62,7 +61,7 @@ void setup(void) {
   digitalWrite(LED_PIN, HIGH);   
 
   // get color reading
-  getColorReading(500);
+  getColorReadings(500);
 
   // turn off led
   digitalWrite(LED_PIN, LOW);   
@@ -71,6 +70,5 @@ void setup(void) {
 
 
 void loop(void) {
-
 
 }

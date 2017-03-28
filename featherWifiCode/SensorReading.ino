@@ -10,7 +10,7 @@ aJsonObject* takeRGBCMeasurement(Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, in
   colorTemp = tcs.calculateColorTemperature(r, g, b);
   lux = tcs.calculateLux(r, g, b);
   //turn off sensor sensorID
-  //digitalWrite(sensorID, HIGH);
+  //digitalWrite(sensorID, LOW);
   //delay(1000)
   return constructRGBCMeasurement(String(r), String(g), String(b), String(c), String(colorTemp), String(lux));
 }

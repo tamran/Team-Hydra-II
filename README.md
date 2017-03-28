@@ -3,7 +3,7 @@
 ## To access the currently live version of the app:
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
-## Testing *without* the Database
+## Testing Colorimetery *without* the Database
 To collect and process colorimetry data **without** pulling from the database, one should run the script `runColorimeter.ino` (under \runColorimeter) in conjunction with the Matlab function `plotCalibData.m.` (under \matlabscripts). 
 
 ### Collecting Data

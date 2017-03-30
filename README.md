@@ -3,7 +3,24 @@
 ## To access the currently live version of the app:
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
-## The simplified architecture of this application is:
+## Testing Colorimetery *without* the Database
+To collect and process colorimetry data **without** pulling from the database, one should run the script `runColorimeter.ino` (under \runColorimeter) in conjunction with the Matlab function `plotCalibData.m.` (under \matlabscripts). 
+
+### Collecting Data
+`runColorimeter.ino` allows the Feather to collect *n* data points for each of the color channels. *n* is set in the argument of the function `getColorReading(n)`. Currently *n* is set to 500 but may be modified in the Arduino script. The readings should then be copied from the serial monitor and saved into a text file with the following naming convention: **[type]**Test\_**[val][unit]**.txt where
+* **[type]**: 'color' for testing various concentrations; 'turbidity' for testing various turbidities.
+* **[val]**: the actual concentration or turbidity of the sample you're testing
+* **[unit]**: ppm for concentration, ntu for turbidity
+
+Example: 'colorTest_10ppm.txt'
+
+### Processing in MATLAB
+`plotCalibData.m` is a function that analyzes *either* the concentration or turbidity of a set of calibration samples. Given several text files using the naming convention above, it pulls data these text files, and plots the channel measurements against for all of the text files (i.e. samples), and plots the average readings as a function of either concentration or turbidity. The function may be called in the command window of Matlab as follows: `plotCalibData(typeOfTest, values, n)` where
+* **typeOfTest**: 'color' if you are analyzing calibration samples of different concentrations; 'turbidity' if you are analyzing calibration samples of different turbidities.
+* **values**: vector of concentrations or turbidities you would like to analyze. (e.g. [1, 10, 20, 30, 40] where each number represents the concentration in ppm)
+* **n**: number of data points contained in each sample trial/text file.
+
+## The simplified communication model of this application is:
 ![Application Architecture](https://raw.github.com/tamran/Team-Hydra-II/master/diagrams/AppArchitecture.png)
 
 ## Currently available features on live version:
@@ -12,9 +29,10 @@
   - Request for a new trial to be started with a given turbidity, concentration, and number of trials
     - __NOTE THAT THE CURRENT MAX NUMBER OF TRIALS IS 30.__ If this number is exceeded, only the first 30 measurements will be posted.
     - This number was chosen as the maximum buffer size that avoids out-of-memory errors
+    - _We should run some experiments to see if reducing the measurement frequency will work for our experiments._ If not, we'll need to 1) try to remove any memory leaks in the Arduino code and/or 2) get a microSD for the Feather HUZZAH.
   - View when the last posted measurement was taken
     - __NOTE__ that when the client is first opened, the last posted measurement will be N/A.  When the next measurement is posted to the database, the time will be updated accordingly
-  - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor"
+  - Clicking the `Experiment Status` navigation item takes you to a page where you can view the new experiment data as it's being added to the database.  This is our equivalent of a "serial monitor." Currently, you can view the Color, Turbidity, and Electrochemical measurements, as they're being taken
   - Clicking the `Trial Data` navigation item displays a list of all conducted Trials.  
     - You can click on the trial name to see all measurements associated with the selected trial.
     - Typing a string into the Filter search box filters the experiments displayed on the screen by the query substring

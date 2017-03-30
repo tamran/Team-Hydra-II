@@ -46,9 +46,9 @@ aJsonObject* constructRGBCMeasurement(String R, String G, String B, String C, St
 aJsonObject* constructElectrochemicalMeasurement(String Aluminum, String StainlessSteel, String Titanium) {
 
   aJsonObject *root = aJson.createObject();
-  aJson.addStringToObject(root, "R", Aluminum.c_str());
-  aJson.addStringToObject(root, "G", StainlessSteel.c_str());
-  aJson.addStringToObject(root, "B", Titanium.c_str());
+  aJson.addStringToObject(root, "Aluminum", Aluminum.c_str());
+  aJson.addStringToObject(root, "StainlessSteel", StainlessSteel.c_str());
+  aJson.addStringToObject(root, "Titanium", Titanium.c_str());
 
   return root;
 }

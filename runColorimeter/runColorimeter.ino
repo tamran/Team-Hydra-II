@@ -18,7 +18,6 @@ Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS347
 // INITIALIZE LED LIGHT SOURCE
 int LED_PIN = 13;
 
-
 void getColorReadings(int n){
   uint16_t r, g, b, c, colorTemp, lux;
   

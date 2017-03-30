@@ -37,12 +37,12 @@ void attemptToPostUnsavedMeasurements(String experiment, String type, aJsonObjec
   }
 }
 
-void performMainDataCollection(String experiment, String type, aJsonObject * (&buf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, aJsonObject * (*collect)(Adafruit_TCS34725)) {
+void performMainDataCollection(String experiment, String type, aJsonObject * (&buf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
   int bufFRONT = 0;
   int bufEND = -1;
 
   for (int i = 0; i < numExperiments; ++i) {
-    aJsonObject* meas = collect(tcs);
+    aJsonObject* meas = collect(tcs, ads);
     buf[++bufEND] = meas;
     attemptToPostUnsavedMeasurements(experiment, type, buf, bufFRONT, bufEND, false);
   }
@@ -56,7 +56,7 @@ void resetIndices(int& front, int fval, int& back, int bval) {
 /**
    Collects the requested number of measurements
 */
-void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs) {
+void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
   aJsonObject* colorBuf[MAX_ARRAY_SIZE];
   aJsonObject* turbidityBuf[MAX_ARRAY_SIZE];
   aJsonObject* electrochemBuf[MAX_ARRAY_SIZE];
@@ -65,11 +65,11 @@ void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs) {
 
   //Collect the data, and post if WiFi is available
   Serial.println("color");
-  performMainDataCollection(experiment, "color", colorBuf, numExperiments, tcs, takeColorMeasurement);
+  performMainDataCollection(experiment, "color", colorBuf, numExperiments, tcs, ads, takeColorMeasurement);
   Serial.println("turbidity");
-  performMainDataCollection(experiment, "turbidity", turbidityBuf, numExperiments, tcs, takeTurbidityMeasurement);
+  performMainDataCollection(experiment, "turbidity", turbidityBuf, numExperiments, tcs, ads, takeTurbidityMeasurement);
   Serial.println("electrochemical");
-  performMainDataCollection(experiment, "electrochemical", electrochemBuf, numExperiments, tcs, takeElectrochemicalMeasurement);
+  performMainDataCollection(experiment, "electrochemical", electrochemBuf, numExperiments, tcs, ads, takeElectrochemicalMeasurement);
 
 
   Serial.println("Waiting to send data");

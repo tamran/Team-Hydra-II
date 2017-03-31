@@ -1,9 +1,6 @@
 #include <ESP8266HTTPClient.h>
-#include <aJSON.h>
 
 String HOST = "http://team-hydra-ii.herokuapp.com";
-//String HOST = "http://10.188.29.197:3000";
-const int httpPort = 80;
 HTTPClient http;
 
 /**

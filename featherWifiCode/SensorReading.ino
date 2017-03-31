@@ -1,5 +1,3 @@
-#include <aJSON.h>
-
 const float PGA_VOLTS = 6144; // millivolts
 const float NUM_BITS = 32767; // 2^15 - 1
 const float mVOLTS_PER_BIT = PGA_VOLTS / NUM_BITS; // mV/bit
@@ -27,29 +25,34 @@ aJsonObject* takeRGBCMeasurement(Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, in
   }
   //turn off sensor sensorID
   digitalWrite(sensorID, LOW);
-  delay(1000);
   return constructRGBCMeasurement(String(r), String(g), String(b), String(c), String(colorTemp), String(lux));
 }
 /**
    Takes a measurement from the sensor
 */
 aJsonObject* takeColorMeasurement(Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
-  return takeRGBCMeasurement(tcs, ads, SENSOR_ID_1);
+  return takeRGBCMeasurement(tcs, ads, COLOR_SENSOR_ID_1);
 }
 
 aJsonObject* takeTurbidityMeasurement(Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
-  return takeRGBCMeasurement(tcs, ads, SENSOR_ID_2);
+  return takeRGBCMeasurement(tcs, ads, COLOR_SENSOR_ID_2);
 }
 
 aJsonObject* takeElectrochemicalMeasurement(Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
-  //TODO
-  //  int16_t adc0 = ads.readADC_SingleEnded(0);
-  //  int16_t adc1 = ads.readADC_SingleEnded(1);
-  //  int16_t adc2 = ads.readADC_SingleEnded(2);
-  //  float aluminumVolatge = (adc0 * mVOLTS_PER_BIT) / 1000;
-  //  float stainlessSteelVolatge = (adc1 * mVOLTS_PER_BIT) / 1000;
-  //  float titaniumVolatge = (adc2 * mVOLTS_PER_BIT) / 1000;
-  //  return constructElectrochemicalMeasurement(String(aluminumVolatge), String(stainlessSteelVolatge), String(titaniumVolatge));
-  return constructElectrochemicalMeasurement(String(0), String(1), String(3));
+  Serial.println("Enabling ADS1115 sensor");
+  digitalWrite(ADC_ID, HIGH);
+  delay(500);
+  ads.begin();
+
+  int16_t adc0 = ads.readADC_SingleEnded(0);
+  int16_t adc1 = ads.readADC_SingleEnded(1);
+  int16_t adc2 = ads.readADC_SingleEnded(2);
+  float aluminumVolatge = (adc0 * mVOLTS_PER_BIT) / 1000;
+  float stainlessSteelVolatge = (adc1 * mVOLTS_PER_BIT) / 1000;
+  float titaniumVolatge = (adc2 * mVOLTS_PER_BIT) / 1000;
+
+  digitalWrite(ADC_ID, LOW);
+  return constructElectrochemicalMeasurement(String(aluminumVolatge), String(stainlessSteelVolatge), String(titaniumVolatge));
+//  return constructElectrochemicalMeasurement(String(0), String(1), String(3));
 }
 

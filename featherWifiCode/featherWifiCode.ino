@@ -31,8 +31,6 @@ void loop(void) {
     return;
   }
 
-  digitalWrite(LED_ID, HIGH);
-
   aJsonObject* experimentInfo = get("/api/newExperiment");
   String experiment = getField(experimentInfo, "experimentName");
 
@@ -44,9 +42,10 @@ void loop(void) {
     Serial.println("Pausing...");
     //delay(10000);
     Serial.println("Starting to collect data");
+    digitalWrite(LED_ID, HIGH);
+    delay(500);
     collectData(experiment, numExperiments, tcs, ads);
+    digitalWrite(LED_ID, LOW);
     get("/api/clearExperiment");
   }
-
-  digitalWrite(LED_ID, LOW);
 }

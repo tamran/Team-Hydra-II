@@ -7,3 +7,5 @@ public-dev/js/
 *.log
 autocad_files/*.stl
 autocad_files/*.bak
+
+delete_trial.py*

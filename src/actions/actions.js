@@ -31,12 +31,38 @@ export const changeNewExperimentText = (textFieldId, changedText) => ({
     text: changedText,
 })
 
+export const changeNewFolderText = (textFieldId, changedText) => ({
+    type: ActionTypes.CHANGE_NEW_FOLDER_TEXT,
+    id: textFieldId,
+    text: changedText,
+})
+
+export const changeUpdateFolderText = (textFieldId, changedText) => ({
+    type: ActionTypes.CHANGE_UPDATE_FOLDER_TEXT,
+    id: textFieldId,
+    text: changedText,
+})
+
 export const updateLastMeasurement = (measurement, measType) => ({
     type: ActionTypes.UPDATE_LATEST_MEASUREMENT,
     measurementType: measType,
     measurement: measurement,
 })
 
+export const requestUpdateFolder = () => ({
+    type: ActionTypes.UPDATE_FOLDER_REQUEST,
+})
+
+export const succeedUpdateFolder = () => ({
+    type: ActionTypes.UPDATE_FOLDER_SUCCESS,
+})
+export const requestCreateFolder = () => ({
+    type: ActionTypes.CREATE_FOLDER_REQUEST,
+})
+
+export const succeedCreateFolder = () => ({
+    type: ActionTypes.CREATE_FOLDER_SUCCESS,
+})
 export const requestCreateExperiment = () => ({
     type: ActionTypes.CREATE_EXPERIMENT_REQUEST,
 })

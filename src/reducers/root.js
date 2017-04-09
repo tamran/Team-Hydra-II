@@ -3,6 +3,8 @@ import folderInfo from './folderInfo';
 import allExperimentInfo from './allExperimentInfo';
 import currentExperiment from './currentExperiment';
 import newExperimentInfo from './newExperimentInfo';
+import newFolderInfo from './newFolderInfo';
+import updateFolderInfo from './updateFolderInfo';
 
 const root = (state=
 {
@@ -10,6 +12,8 @@ const root = (state=
     allExperimentInfo: undefined,
     newExperimentInfo: undefined,
     currentExperiment: undefined,
+    newFolderInfo: undefined,
+    updateFolderInfo: undefined,
     routing: undefined,
 }
 , action) => {
@@ -19,6 +23,8 @@ const root = (state=
         allExperimentInfo: allExperimentInfo(state.allExperimentInfo, action),
         newExperimentInfo: newExperimentInfo(state.newExperimentInfo, action),
         currentExperiment: currentExperiment(state.currentExperiment, action),
+        newFolderInfo: newFolderInfo(state.newFolderInfo, action),
+        updateFolderInfo: updateFolderInfo(state.updateFolderInfo, action),
         routing: routerReducer(state.routing, action),
     }
 }

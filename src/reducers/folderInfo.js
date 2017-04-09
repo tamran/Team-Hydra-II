@@ -27,7 +27,7 @@ const folder = (state={
         case ActionTypes.ADD_TRIAL_TO_FOLDER:
             return {
                 ...state,
-                trials: trials(undefined, action)
+                trials: trials(state.trials, action)
             }
     }
 }

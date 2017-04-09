@@ -1,19 +1,60 @@
-import { clearFolders, changeFolderFilter, createNewFolder, addTrialToFolder, requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement, changeTrialFilter, clearTrials } from './actions';
+import { requestUpdateFolder, succeedUpdateFolder, requestCreateFolder, succeedCreateFolder, clearFolders, changeFolderFilter, createNewFolder, addTrialToFolder, requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement, changeTrialFilter, clearTrials } from './actions';
 import fetch from 'isomorphic-fetch';
 
-const experimentInfoIsValid = (experimentInfoMap) => {
+const infoIsValid = (infoMap) => {
 
-    for (var key in experimentInfoMap) {
-        if (experimentInfoMap[key].text === '') {
+    for (var key in infoMap) {
+        if ( infoMap[key].text === '') {
             return false;
         }
     }
     return true;
 }
 
+export const updateFolder = () => {
+    return (dispatch, getState) => {
+        if (!infoIsValid(getState().updateFolderInfo.byId)) {
+            return;
+        }
+
+        dispatch(requestUpdateFolder());
+        return fetch(`/api/folder/${getState().updateFolderInfo.byId['Folder Name'].text}/${getState().updateFolderInfo.byId['Trial Name'].text}`, {
+                headers: {
+                    'Accept':'text/plain',
+                    'Content-Type': 'application/json',
+                },
+                method: 'post',
+                body: JSON.stringify({
+                })
+        })
+            .then(dispatch(succeedUpdateFolder()))
+            .then(Promise.resolve())
+    }
+}
+export const createFolder = () => {
+    return (dispatch, getState) => {
+        if (!infoIsValid(getState().newFolderInfo.byId)) {
+            return;
+        }
+
+        dispatch(requestCreateFolder());
+        return fetch(`/api/folder/${getState().newFolderInfo.byId['New Folder Name'].text}`, {
+                headers: {
+                    'Accept':'text/plain',
+                    'Content-Type': 'application/json',
+                },
+                method: 'post',
+                body: JSON.stringify({
+                })
+        })
+            .then(dispatch(succeedCreateFolder()))
+            .then(Promise.resolve())
+    }
+}
+
 export const createExperiment = () => {
     return (dispatch, getState) => {
-        if (!experimentInfoIsValid(getState().newExperimentInfo.byId)) {
+        if (!infoIsValid(getState().newExperimentInfo.byId)) {
             return;
         }
 

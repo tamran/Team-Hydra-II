@@ -13,7 +13,7 @@ const WelcomePage = () => (
                         This page is used for handling data collection and data management.
                     </p>
                 </Jumbotron>
-                <VisibleExperimentSubmissionForm />
+                <VisibleExperimentSubmissionForm buttonText="Run Experiment"/>
                 <VisibleStatusBox/>
             </Col>
         </Row>

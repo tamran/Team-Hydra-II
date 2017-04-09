@@ -8,6 +8,7 @@ const FolderList = ({ folderInfo }) => (
             <Folder 
                 key={index} 
                 name={folderName} 
+                description={folderInfo[folderName].decription}
                 trialNames={folderInfo[folderName].trials}
             />
         )}

@@ -1,9 +1,17 @@
-import { getAllTrials, getTrial, createTrial, saveColorMeasurement, saveTurbidityMeasurement, saveElectrochemicalMeasurement  } from '../db/mongo_connector';
+import { getAllTrials, getTrial, createTrial, saveMeasurementDispatcher  } from '../db/mongo_connector';
 import { emitter } from '../socket_io_connector';
 
 let getCurrentTime = () => {
     let date = new Date().toString(); 
     return date;
+}
+
+let saveMeasurement = (req, measurementType) => {
+    let measurement = req.body;
+    saveMeasurementDispatcher(measurementType)(req.params.trialName,measurement)
+    measurement.name = req.params.trialName;
+    measurement.time = getCurrentTime();
+    emitter(measurement, measurementType);
 }
 
 let dataCollection = (app) => {
@@ -21,29 +29,17 @@ let dataCollection = (app) => {
         })
     app.route('/api/measurement/color/:trialName')
         .post((req,res) => {
-            let measurement = req.body;
-            saveColorMeasurement(req.params.trialName,measurement)
-            measurement.name = req.params.trialName;
-            measurement.time = getCurrentTime();
-            emitter(measurement, 'color');
+            saveMeasurement(req, 'color')
             res.end();
         })
     app.route('/api/measurement/turbidity/:trialName')
         .post((req,res) => {
-            let measurement = req.body;
-            saveTurbidityMeasurement(req.params.trialName,measurement)
-            measurement.name = req.params.trialName;
-            measurement.time = getCurrentTime();
-            emitter(measurement, 'turbidity');
+            saveMeasurement(req, 'turbidity')
             res.end();
         })
     app.route('/api/measurement/electrochemical/:trialName')
         .post((req,res) => {
-            let measurement = req.body;
-            saveElectrochemicalMeasurement(req.params.trialName,measurement)
-            measurement.name = req.params.trialName;
-            measurement.time = getCurrentTime();
-            emitter(measurement, 'electrochemical');
+            saveMeasurement(req, 'electrochemical')
             res.end();
         })
 }

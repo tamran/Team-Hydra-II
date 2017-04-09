@@ -3,8 +3,9 @@ import { changeNewExperimentText } from '../actions/actions';
 import { createExperiment } from '../actions/asyncActions';
 import ExperimentSubmissionForm from '../components/ExperimentSubmissionForm';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => ({
     dataFields: state.newExperimentInfo,
+    buttonText: props.buttonText,
 });
 
 const mapDispatchToProps = (dispatch) => ({

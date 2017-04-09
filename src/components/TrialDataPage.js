@@ -7,7 +7,7 @@ const TrialDataPage = () => (
         <Row>
             <Col xs={12}>
                 <h1>Trial Browser</h1>
-                <VisibleSearchBar label="Filter" />
+                <VisibleSearchBar label="Filter" searchFor="trialData" />
                 <VisibleTrialDataList />
             </Col>
         </Row>

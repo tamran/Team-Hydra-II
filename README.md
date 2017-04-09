@@ -63,6 +63,13 @@ Example: 'colorTest_10ppm.txt'
         - turbidity
         - electrochemical
       - When the measurement has been posted to the database, the server notifies the web client that a new measurement has been placed in the database
+  - /api/folders[?filter=FILTER_STRING]
+    - `GET` returns a string list of the names of all folders stored in the database
+  - /api/folder/:folderName
+    - `GET` Returns the (unpopulated) Trial objects associated with :folderName
+    - `POST` Creates a folder in the database named :folderName
+  - /api/folder/:folderName/:trialName
+    - `POST` Adds :trialName to the :folderName folder
 
 __NOTE__ that there are two different types of routes - ReactRouter routes, and routes that the server accepts.  For example, there are `/experiment` and `/data` ReactRouter routes that appear when navigating to different tabs on the website. However, reloading the webpage at these routes will result in a _Cannot GET /ROUTE_NAME_.  This is because these are client-side routes only, and thus do not exist on the server side.  I am currently working on a way around this, so that reloading the webpage at one of these routes does not result in the _Cannot GET_ message.
 

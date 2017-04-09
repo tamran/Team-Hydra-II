@@ -25,3 +25,10 @@ export const trialDataSchema = Schema({
     turbidityMeasurements: [{type: Schema.Types.ObjectId, ref: 'ColorMeasurement'}],
     electrochemicalMeasurements: [{type: Schema.Types.ObjectId, ref: 'ElectrochemicalMeasurement'}],
 })
+
+export const folderSchema = Schema({
+    name: String,
+    time: { type: Date, default: Date.now },
+    description: String,
+    trials: [{type: Schema.Types.ObjectId, ref: 'TrialData'}],
+})

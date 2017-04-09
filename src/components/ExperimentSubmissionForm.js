@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Form, FormGroup, Col, Row, Button } from 'react-bootstrap';
 import TextInputField from './TextInputField';
 
-const ExperimentSubmissionForm = ({ dataFields, onChangeText, onSubmit }) => (
+const ExperimentSubmissionForm = ({ dataFields, buttonText, onChangeText, onSubmit }) => (
     <div>
         <Form horizontal onSubmit={(e) => {e.preventDefault(); onSubmit();}}>
             <Row>
@@ -14,7 +14,7 @@ const ExperimentSubmissionForm = ({ dataFields, onChangeText, onSubmit }) => (
             </Row>
             <Row>
                 <Col xs={2}>
-                    <Button type="submit">Run Experiment</Button>
+                    <Button type="submit">{buttonText}</Button>
                 </Col>
             </Row>
         </Form>

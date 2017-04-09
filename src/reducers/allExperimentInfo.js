@@ -71,7 +71,7 @@ const allExperimentInfo = (state={
     filter: '',
 }, action) => {
     switch(action.type) {
-        case ActionTypes.CHANGE_FILTER:
+        case ActionTypes.CHANGE_TRIAL_FILTER:
             return {
                 ...state,
                 filter: action.filter,

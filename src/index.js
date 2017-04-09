@@ -13,6 +13,7 @@ import { customRoutingMiddleware } from './custom_middleware/custom_routing';
 import WelcomePage from './components/WecomePage';
 import ExperimentStatusPage from './components/ExperimentStatusPage';
 import TrialDataPage from './components/TrialDataPage';
+import FolderPage from './components/FolderPage';
 import { changeLocation } from './actions/actions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -32,6 +33,7 @@ render(
                 <IndexRoute component={WelcomePage} />
                 <Route path="experiment" component={ExperimentStatusPage} />
                 <Route path="data" component={TrialDataPage} />
+                <Route path="organization" component={FolderPage} />
             </Route>
         </Router>
     </Provider>,

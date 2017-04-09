@@ -1,5 +1,16 @@
 import ActionTypes from './actionTypes';
 
+export const createNewFolder = (folderName) => ({
+    type: ActionTypes.CREATE_NEW_FOLDER,
+    name: folderName,
+})
+
+export const addTrialToFolder = (folderName, trialName) => ({
+    type: ActionTypes.ADD_TRIAL_TO_FOLDER,
+    folderName: folderName,
+    trialName: trialName,
+})
+
 export const changeLocation = (location) => ({
     type: ActionTypes.LOCATION_CHANGE,
     location: location,

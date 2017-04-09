@@ -13,6 +13,9 @@ const ActionTypes = {
 
     CHANGE_FILTER: 'CHANGE_FILTER',
     CLEAR_TRIALS: 'CLEAR_TRIALS',
+
+    CREATE_NEW_FOLDER: 'CREATE_NEW_FOLDER',
+    ADD_TRIAL_TO_FOLDER: 'ADD_TRIAL_TO_FOLDER'
 }
 
 export default ActionTypes;

@@ -1,4 +1,4 @@
-import { requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement, changeFilter, clearTrials } from './actions';
+import { createNewFolder, addTrialToFolder, requestCreateExperiment, succeedCreateExperiment, createNewTrial, createNewMeasurement, changeFilter, clearTrials } from './actions';
 import fetch from 'isomorphic-fetch';
 
 const experimentInfoIsValid = (experimentInfoMap) => {
@@ -55,6 +55,25 @@ export const loadAllTrialData = () => {
             })
         )
         .then(Promise.resolve())
+    }
+}
+
+export const loadAllFolders = () => {
+    return (dispatch, getState) => {
+        return fetch(`/api/folders?filter=${getState().folderInfo.filter}`)
+            .then(res => res.json())
+            .then(json => json.forEach( folderName => {
+                dispatch(createNewFolder(folderName))
+                fetch(`api/folder/${folderName}`)
+                    .then(res => res.json())
+                    .then(json => {
+                        json.trials.forEach(trial => {
+                            dispatch(addTrialToFolder(folderName, trial.name))
+                        })
+                    })
+                    .then(Promise.resolve())
+            } ))
+            .then(Promise.resolve())
     }
 }
 

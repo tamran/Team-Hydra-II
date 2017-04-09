@@ -7,7 +7,7 @@ const FolderPage = () => (
         <Row>
             <Col xs={12}>
                 <h1>Folder Browser</h1>
-                <VisibleSearchBar label="Filter" />
+                <VisibleSearchBar label="Filter" searchFor="folders" />
                 <VisibleFolderList />
             </Col>
         </Row>

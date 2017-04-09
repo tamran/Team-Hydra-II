@@ -1,5 +1,14 @@
 import ActionTypes from './actionTypes';
 
+export const clearFolders = () => ({
+    type: ActionTypes.CLEAR_FOLDERS,
+})
+
+export const changeFolderFilter = (newFilter) => ({
+    type: ActionTypes.CHANGE_FOLDER_FILTER,
+    filter: newFilter,
+})
+
 export const createNewFolder = (folderName) => ({
     type: ActionTypes.CREATE_NEW_FOLDER,
     name: folderName,
@@ -48,8 +57,8 @@ export const createNewMeasurement = (trialName, measurement, measType) => ({
     measurementType: measType,
 })
 
-export const changeFilter = (newFilter) => ({
-    type: ActionTypes.CHANGE_FILTER,
+export const changeTrialFilter = (newFilter) => ({
+    type: ActionTypes.CHANGE_TRIAL_FILTER,
     filter: newFilter
 })
 export const clearTrials = () => ({

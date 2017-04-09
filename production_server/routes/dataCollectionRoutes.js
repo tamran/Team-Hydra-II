@@ -13,6 +13,14 @@ var getCurrentTime = function getCurrentTime() {
     return date;
 };
 
+var saveMeasurement = function saveMeasurement(req, measurementType) {
+    var measurement = req.body;
+    (0, _mongo_connector.saveMeasurementDispatcher)(measurementType)(req.params.trialName, measurement);
+    measurement.name = req.params.trialName;
+    measurement.time = getCurrentTime();
+    (0, _socket_io_connector.emitter)(measurement, measurementType);
+};
+
 var dataCollection = function dataCollection(app) {
     app.route('/api/trials').get(function (req, res) {
         (0, _mongo_connector.getAllTrials)(req.query.filter, res);
@@ -24,27 +32,15 @@ var dataCollection = function dataCollection(app) {
         res.end();
     });
     app.route('/api/measurement/color/:trialName').post(function (req, res) {
-        var measurement = req.body;
-        (0, _mongo_connector.saveColorMeasurement)(req.params.trialName, measurement);
-        measurement.name = req.params.trialName;
-        measurement.time = getCurrentTime();
-        (0, _socket_io_connector.emitter)(measurement, 'color');
+        saveMeasurement(req, 'color');
         res.end();
     });
     app.route('/api/measurement/turbidity/:trialName').post(function (req, res) {
-        var measurement = req.body;
-        (0, _mongo_connector.saveTurbidityMeasurement)(req.params.trialName, measurement);
-        measurement.name = req.params.trialName;
-        measurement.time = getCurrentTime();
-        (0, _socket_io_connector.emitter)(measurement, 'turbidity');
+        saveMeasurement(req, 'turbidity');
         res.end();
     });
     app.route('/api/measurement/electrochemical/:trialName').post(function (req, res) {
-        var measurement = req.body;
-        (0, _mongo_connector.saveElectrochemicalMeasurement)(req.params.trialName, measurement);
-        measurement.name = req.params.trialName;
-        measurement.time = getCurrentTime();
-        (0, _socket_io_connector.emitter)(measurement, 'electrochemical');
+        saveMeasurement(req, 'electrochemical');
         res.end();
     });
 };

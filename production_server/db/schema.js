@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.trialDataSchema = exports.electrochemicalMeasurementSchema = exports.colorMeasurementSchema = undefined;
+exports.folderSchema = exports.trialDataSchema = exports.electrochemicalMeasurementSchema = exports.colorMeasurementSchema = undefined;
 
 var _mongoose = require('mongoose');
 
@@ -36,4 +36,11 @@ var trialDataSchema = exports.trialDataSchema = Schema({
     colorMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ColorMeasurement' }],
     turbidityMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ColorMeasurement' }],
     electrochemicalMeasurements: [{ type: Schema.Types.ObjectId, ref: 'ElectrochemicalMeasurement' }]
+});
+
+var folderSchema = exports.folderSchema = Schema({
+    name: String,
+    time: { type: Date, default: Date.now },
+    description: String,
+    trials: [{ type: Schema.Types.ObjectId, ref: 'TrialData' }]
 });

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TrialData = exports.ElectrochemicalMeasurement = exports.ColorMeasurement = undefined;
+exports.Folder = exports.TrialData = exports.ElectrochemicalMeasurement = exports.ColorMeasurement = undefined;
 
 var _mongoose = require('mongoose');
 
@@ -16,3 +16,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ColorMeasurement = exports.ColorMeasurement = _mongoose2.default.model('ColorMeasurement', _schema.colorMeasurementSchema);
 var ElectrochemicalMeasurement = exports.ElectrochemicalMeasurement = _mongoose2.default.model('ElectrochemicalMeasurement', _schema.electrochemicalMeasurementSchema);
 var TrialData = exports.TrialData = _mongoose2.default.model('TrialData', _schema.trialDataSchema);
+var Folder = exports.Folder = _mongoose2.default.model('Folder', _schema.folderSchema);

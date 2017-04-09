@@ -20,6 +20,15 @@
     - You can click on the trial name to see all measurements associated with the selected trial.
     - Typing a string into the Filter search box filters the experiments displayed on the screen by the query substring
     - __NOTE__ that the data on this page only updates when you re-select the `Trial Data` navigation item, or when you type a new string
+  - Clicking the `Folders` navigation item displays three areas:
+    - Create New Folder:
+      - Using this field, you can create a new folder in the database
+    - Add Trial to Folder:
+      - Using this field, you can assoicate a trial in the database with a folder
+      - Note that submitting this form will only work correctly if both the folder and trial names already exist in the database
+    - Folder Browser:
+      - This section displays all folders in the database.  You can filter search for folders.
+      - Overall, the purpose of folders is to provide a simple way of associating trials with eachother.  We can mark certain trials as bad by putting them in a "Trash" folder, ect. 
 
 ## The server accepts the following API:
   - /

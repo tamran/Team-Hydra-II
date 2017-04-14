@@ -2,6 +2,16 @@
 
 #define MAX_ARRAY_SIZE 30
 
+void performMainDataCollectionWrapper(String experiment, String type, int numFiles, int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
+  aJsonObject* buf[MAX_ARRAY_SIZE];
+
+  for (int i = 0; i < numFiles; ++i) {
+    performMainDataCollection(experiment, type, buf, numExperiments, tcs, ads, collect);
+    saveBuffer(buf, getFilename(type, i));
+    clearBuffer(buf);
+  }
+}
+
 void performMainDataCollection(String experiment, String type, aJsonObject * (&buf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
   int bufFRONT = 0;
   int bufEND = -1;
@@ -9,47 +19,30 @@ void performMainDataCollection(String experiment, String type, aJsonObject * (&b
   for (int i = 0; i < numExperiments; ++i) {
     aJsonObject* meas = collect(tcs, ads);
     buf[++bufEND] = meas;
-    attemptToPostUnsavedMeasurements(experiment, type, buf, bufFRONT, bufEND, false);
   }
-}
-
-void resetIndices(int& front, int fval, int& back, int bval) {
-  front = fval;
-  back = bval;
 }
 
 /**
    Collects the requested number of measurements
 */
 void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
-  aJsonObject* colorBuf[MAX_ARRAY_SIZE];
-  aJsonObject* turbidityBuf[MAX_ARRAY_SIZE];
-  aJsonObject* electrochemBuf[MAX_ARRAY_SIZE];
-
-  numExperiments = min(numExperiments, MAX_ARRAY_SIZE);
+  int numFiles = ceil((float)numExperiments / MAX_ARRAY_SIZE);
 
   //Collect the data, and post if WiFi is available
   Serial.println("color");
-  performMainDataCollection(experiment, "color", colorBuf, numExperiments, tcs, ads, takeColorMeasurement);
+  performMainDataCollectionWrapper(experiment, "color", numFiles, numExperiments, tcs, ads, takeColorMeasurement);
   Serial.println("turbidity");
-  performMainDataCollection(experiment, "turbidity", turbidityBuf, numExperiments, tcs, ads, takeTurbidityMeasurement);
+  performMainDataCollectionWrapper(experiment, "turbidity", numFiles, numExperiments, tcs, ads, takeTurbidityMeasurement);
   Serial.println("electrochemical");
-  performMainDataCollection(experiment, "electrochemical", electrochemBuf, numExperiments, tcs, ads, takeElectrochemicalMeasurement);
-
-
-  Serial.println("Waiting to send data");
-  int beginOfArray, endOfArray;
+  performMainDataCollectionWrapper(experiment, "electrochemical", numFiles, numExperiments, tcs, ads, takeElectrochemicalMeasurement);
 
   //Keep trying to post till everything is gone
   //For simplicity, we'll just look at the entire array instead of keeping track of the beginning and end of it
   Serial.println("color");
-  resetIndices(beginOfArray, 0, endOfArray, numExperiments - 1);
-  attemptToPostUnsavedMeasurements(experiment, "color", colorBuf, beginOfArray, endOfArray, true);
+  attemptToPostUnsavedMeasurementsFromFile(experiment, "color", numFiles);
   Serial.println("turbidity");
-  resetIndices(beginOfArray, 0, endOfArray, numExperiments - 1);
-  attemptToPostUnsavedMeasurements(experiment, "turbidity", turbidityBuf, beginOfArray, endOfArray, true);
+  attemptToPostUnsavedMeasurementsFromFile(experiment, "turbidity", numFiles);
   Serial.println("electrochemical");
-  resetIndices(beginOfArray, 0, endOfArray, numExperiments - 1);
-  attemptToPostUnsavedMeasurements(experiment, "electrochemical", electrochemBuf, beginOfArray, endOfArray, true);
+  attemptToPostUnsavedMeasurementsFromFile(experiment, "electrochemical", numFiles);
 }
 

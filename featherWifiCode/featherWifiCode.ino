@@ -2,11 +2,14 @@
 #include <aJSON.h>
 #include "Adafruit_TCS34725.h"
 #include <Adafruit_ADS1015.h>
+#include <SPI.h>
+#include <SD.h>
 
 #define LED_ID 13
 #define COLOR_SENSOR_ID_1 14
 #define COLOR_SENSOR_ID_2 15
 #define ADC_ID 12
+#define SD_ID 4
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 /* Adafruit_TCS34725 tcs = Adafruit_TCS34725();
@@ -22,6 +25,11 @@ void setup(void) {
   pinMode(COLOR_SENSOR_ID_1, OUTPUT);
   pinMode(COLOR_SENSOR_ID_2, OUTPUT);
   pinMode(ADC_ID, OUTPUT);
+
+  if (!SD.begin(SD_ID)) {
+    Serial.println("Could not find SD card");
+    return;
+  }
 
   Serial.println("Setup complete");
 }

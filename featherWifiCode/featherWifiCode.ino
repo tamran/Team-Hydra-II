@@ -35,47 +35,25 @@ void setup(void) {
 }
 
 void loop(void) {
-    if (connectToWiFi() == -1) {
+  if (connectToWiFi() == -1) {
     return;
   }
-    File file = SD.open("derp.txt", O_WRITE | O_CREAT | O_TRUNC);
-    aJsonObject* experimentInfo = get("/api/newExperiment");
-    file.println(aJson.print(experimentInfo));
-    file.println("test");
-    file.close();
-//    Serial.println("Printing");
-//    printFile("derp.txt");
-    File f = SD.open("derp.txt");
-    String s;
-    s = f.readStringUntil('\n');
-    Serial.println("first line");
-    Serial.println(s);
-    aJsonObject* json = getJson(s);
-    Serial.println("printing saved object");
-    Serial.println(aJson.print(json));
-    Serial.println("printing field");
-    Serial.println(getField(json,"experimentName"));
-    f.close();
 
-//  if (connectToWiFi() == -1) {
-//    return;
-//  }
-//
-//  aJsonObject* experimentInfo = get("/api/newExperiment");
-//  String experiment = getField(experimentInfo, "experimentName");
-//
-//  if (experiment != "") {
-//    int numExperiments = getField(experimentInfo, "numExperiments").toInt();
-//
-//    createTrial(experiment);
-//    Serial.println("Trial created");
-//    Serial.println("Pausing...");
-//    //delay(10000);
-//    Serial.println("Starting to collect data");
-//    digitalWrite(LED_ID, HIGH);
-//    delay(500);
-//    collectData(experiment, numExperiments, tcs, ads);
-//    digitalWrite(LED_ID, LOW);
-//    get("/api/clearExperiment");
-//  }
+  aJsonObject* experimentInfo = get("/api/newExperiment");
+  String experiment = getField(experimentInfo, "experimentName");
+
+  if (experiment != "") {
+    int numExperiments = getField(experimentInfo, "numExperiments").toInt();
+
+    createTrial(experiment);
+    Serial.println("Trial created");
+    Serial.println("Pausing...");
+    //delay(10000);
+    Serial.println("Starting to collect data");
+    digitalWrite(LED_ID, HIGH);
+    delay(500);
+    collectData(experiment, numExperiments, tcs, ads);
+    digitalWrite(LED_ID, LOW);
+    get("/api/clearExperiment");
+  }
 }

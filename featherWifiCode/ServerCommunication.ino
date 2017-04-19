@@ -15,6 +15,8 @@ int postMeasurement(String trial, String type, aJsonObject* json) {
 void attemptToPostUnsavedMeasurementsFromFile(String experiment, String type, int numFiles) {
   for (int i = 0; i < numFiles; ++i) {
     String filename = getFilename(type, i);
+    Serial.print("Posting measurements from file: ");
+    Serial.println(filename);
     aJsonObject* buf[MAX_ARRAY_SIZE];
     getMeasurements(buf, filename);
     attemptToPostUnsavedMeasurements(experiment, type, buf, 0, MAX_ARRAY_SIZE - 1, true);

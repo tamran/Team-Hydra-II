@@ -9,7 +9,6 @@ void printFile(String filename) {
     String s = file.readStringUntil('\n');
     Serial.println(s);
     Serial.println(i);
-//    Serial.println(file.readStringUntil('\n'));
   }
   file.close();
 }
@@ -18,7 +17,8 @@ void getMeasurements(aJsonObject * (&buf)[MAX_ARRAY_SIZE], String filename) {
   File file = SD.open(filename);
 
   for (int i=0; i<MAX_ARRAY_SIZE; ++i) {
-    buf[i] = getJson(file.readStringUntil('\n'));
+    String line = file.readStringUntil('\n');
+    buf[i] = getJson(line);
   }
 
   file.close();

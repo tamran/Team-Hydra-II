@@ -1,6 +1,6 @@
 #include <aJSON.h>
 
-#define MAX_ARRAY_SIZE 30
+#define MAX_ARRAY_SIZE 10
 
 void performMainDataCollectionWrapper(String experiment, String type, int numFiles, int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
   aJsonObject* buf[MAX_ARRAY_SIZE];

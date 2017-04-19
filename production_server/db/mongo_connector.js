@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.saveMeasurementDispatcher = exports.createItem = exports.getTrial = exports.getAllTrials = exports.addTrialToFolder = exports.createFolder = exports.getFolder = exports.getAllFolders = undefined;
+exports.saveMeasurementDispatcher = exports.createTrial = exports.getTrial = exports.getAllTrials = exports.addTrialToFolder = exports.createFolder = exports.getFolder = exports.getAllFolders = undefined;
 
 var _folders = require('./helpers/folders');
 
@@ -46,10 +46,10 @@ Object.defineProperty(exports, 'getTrial', {
     return _trials.getTrial;
   }
 });
-Object.defineProperty(exports, 'createItem', {
+Object.defineProperty(exports, 'createTrial', {
   enumerable: true,
   get: function get() {
-    return _trials.createItem;
+    return _trials.createTrial;
   }
 });
 

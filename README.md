@@ -3,23 +3,6 @@
 ## To access the currently live version of the app:
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
-## Testing Colorimetery *without* the Database
-To collect and process colorimetry data **without** pulling from the database, one should run the script `runColorimeter.ino` (under \runColorimeter) in conjunction with the Matlab function `plotCalibData.m.` (under \matlabscripts). 
-
-### Collecting Data
-`runColorimeter.ino` allows the Feather to collect *n* data points for each of the color channels. *n* is set in the argument of the function `getColorReading(n)`. Currently *n* is set to 500 but may be modified in the Arduino script. The readings should then be copied from the serial monitor and saved into a text file with the following naming convention: **[type]**Test\_**[val][unit]**.txt where
-* **[type]**: 'color' for testing various concentrations; 'turbidity' for testing various turbidities.
-* **[val]**: the actual concentration or turbidity of the sample you're testing
-* **[unit]**: ppm for concentration, ntu for turbidity
-
-Example: 'colorTest_10ppm.txt'
-
-### Processing in MATLAB
-`plotCalibData.m` is a function that analyzes *either* the concentration or turbidity of a set of calibration samples. Given several text files using the naming convention above, it pulls data these text files, and plots the channel measurements against for all of the text files (i.e. samples), and plots the average readings as a function of either concentration or turbidity. The function may be called in the command window of Matlab as follows: `plotCalibData(typeOfTest, values, n)` where
-* **typeOfTest**: 'color' if you are analyzing calibration samples of different concentrations; 'turbidity' if you are analyzing calibration samples of different turbidities.
-* **values**: vector of concentrations or turbidities you would like to analyze. (e.g. [1, 10, 20, 30, 40] where each number represents the concentration in ppm)
-* **n**: number of data points contained in each sample trial/text file.
-
 ## The simplified communication model of this application is:
 ![Application Architecture](https://raw.github.com/tamran/Team-Hydra-II/master/diagrams/AppArchitecture.png)
 
@@ -37,6 +20,15 @@ Example: 'colorTest_10ppm.txt'
     - You can click on the trial name to see all measurements associated with the selected trial.
     - Typing a string into the Filter search box filters the experiments displayed on the screen by the query substring
     - __NOTE__ that the data on this page only updates when you re-select the `Trial Data` navigation item, or when you type a new string
+  - Clicking the `Folders` navigation item displays three areas:
+    - Create New Folder:
+      - Using this field, you can create a new folder in the database
+    - Add Trial to Folder:
+      - Using this field, you can assoicate a trial in the database with a folder
+      - Note that submitting this form will only work correctly if both the folder and trial names already exist in the database
+    - Folder Browser:
+      - This section displays all folders in the database.  You can filter search for folders.
+      - Overall, the purpose of folders is to provide a simple way of associating trials with eachother.  We can mark certain trials as bad by putting them in a "Trash" folder, ect. 
 
 ## The server accepts the following API:
   - /
@@ -112,6 +104,23 @@ In order to run our code, the following packages must be available to the Arduin
 - `aJSON.h`
 - `ESP8266HTTPClient.h`
 - `Adafruit_TCS34725.h`
+
+## Testing Colorimetery *without* the Database
+To collect and process colorimetry data **without** pulling from the database, one should run the script `runColorimeter.ino` (under \runColorimeter) in conjunction with the Matlab function `plotCalibData.m.` (under \matlabscripts). 
+
+### Collecting Data
+`runColorimeter.ino` allows the Feather to collect *n* data points for each of the color channels. *n* is set in the argument of the function `getColorReading(n)`. Currently *n* is set to 500 but may be modified in the Arduino script. The readings should then be copied from the serial monitor and saved into a text file with the following naming convention: **[type]**Test\_**[val][unit]**.txt where
+* **[type]**: 'color' for testing various concentrations; 'turbidity' for testing various turbidities.
+* **[val]**: the actual concentration or turbidity of the sample you're testing
+* **[unit]**: ppm for concentration, ntu for turbidity
+
+Example: 'colorTest_10ppm.txt'
+
+### Processing in MATLAB
+`plotCalibData.m` is a function that analyzes *either* the concentration or turbidity of a set of calibration samples. Given several text files using the naming convention above, it pulls data these text files, and plots the channel measurements against for all of the text files (i.e. samples), and plots the average readings as a function of either concentration or turbidity. The function may be called in the command window of Matlab as follows: `plotCalibData(typeOfTest, values, n)` where
+* **typeOfTest**: 'color' if you are analyzing calibration samples of different concentrations; 'turbidity' if you are analyzing calibration samples of different turbidities.
+* **values**: vector of concentrations or turbidities you would like to analyze. (e.g. [1, 10, 20, 30, 40] where each number represents the concentration in ppm)
+* **n**: number of data points contained in each sample trial/text file.
 
 ## To setup the Feather communication in Arduino:
 

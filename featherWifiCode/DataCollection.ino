@@ -2,9 +2,9 @@
 
 #define MAX_ARRAY_SIZE 30
 
-void dispatchDataCollection(String experiment, aJsonObject * (&colorBuf)[MAX_ARRAY_SIZE], aJsonObject * (&turbidityBuf)[MAX_ARRAY_SIZE], aJsonObject * (&electrochemBuf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
+void dispatchDataCollection(String experiment, aJsonObject * (&colorBuf)[MAX_ARRAY_SIZE], aJsonObject * (&turbidityBuf)[MAX_ARRAY_SIZE], aJsonObject * (&electrochemBuf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, int totalExperimentTime) {
   //Collect the data, and post if WiFi is available
-  int timeToWait = ceil(float(TOTAL_EXPERIMENT_TIME) / numExperiments);
+  int timeToWait = ceil(float(totalExperimentTime) / numExperiments);
 
   for (int i = 0; i < numExperiments; ++i) {
     Serial.println("color");
@@ -34,14 +34,14 @@ void resetIndices(int& front, int fval, int& back, int bval) {
 /**
    Collects the requested number of measurements
 */
-void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
+void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, int totalExperimentTime) {
   aJsonObject* colorBuf[MAX_ARRAY_SIZE];
   aJsonObject* turbidityBuf[MAX_ARRAY_SIZE];
   aJsonObject* electrochemBuf[MAX_ARRAY_SIZE];
 
   numExperiments = min(numExperiments, MAX_ARRAY_SIZE);
 
-  dispatchDataCollection(experiment, colorBuf, turbidityBuf, electrochemBuf, numExperiments, tcs, ads);
+  dispatchDataCollection(experiment, colorBuf, turbidityBuf, electrochemBuf, numExperiments, tcs, ads, totalExperimentTime);
 
   Serial.println("Waiting to send data");
   int beginOfArray, endOfArray;

@@ -8,8 +8,8 @@
 #define COLOR_SENSOR_ID_2 16
 #define ADC_ID 12
 
-#define INITIAL_WAIT 2 * 60 * 1000
-#define TOTAL_EXPERIMENT_TIME 60 * 1000
+//#define INITIAL_WAIT 2 * 60 * 1000
+//#define TOTAL_EXPERIMENT_TIME 60 * 1000
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 /* Adafruit_TCS34725 tcs = Adafruit_TCS34725();
@@ -39,15 +39,17 @@ void loop(void) {
 
   if (experiment != "") {
     int numExperiments = getField(experimentInfo, "numExperiments").toInt();
+    int initialWait = getField(experimentInfo, "initialWait").toInt();
+    int totalExperimentTime = getField(experimentInfo, "totalExperimentTime").toInt();    
 
     createTrial(experiment);
     Serial.println("Trial created");
     Serial.println("Pausing...");
-    delay(INITIAL_WAIT);
+    delay(initialWait);
     Serial.println("Starting to collect data");
     digitalWrite(LED_ID, HIGH);
     delay(500);
-    collectData(experiment, numExperiments, tcs, ads);
+    collectData(experiment, numExperiments, tcs, ads, totalExperimentTime);
     digitalWrite(LED_ID, LOW);
     get("/api/clearExperiment");
   }

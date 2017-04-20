@@ -54,8 +54,10 @@ const newExperimentInfo = (state={
         'Turbidity': undefined,
         'Concentration': undefined,
         'Number of Measurements': undefined,
+        'initialWait': undefined,
+        'totalExperimentTime': undefined,
     },
-    allIds: ['Turbidity', 'Concentration', 'Number of Measurements'],
+    allIds: ['Turbidity', 'Concentration', 'Number of Measurements','initialWait','totalExperimentTime'],
 }, action) => ({
     ...state,
     byId: updateById(state.byId, action),

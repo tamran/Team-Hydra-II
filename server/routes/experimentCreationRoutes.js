@@ -4,6 +4,8 @@ let setCurrentExperiment = (body) => {
     const turbidity = body['Turbidity'].text;
     const conc = body['Concentration'].text;
     const numExperiments = body['Number of Measurements'].text;
+    const initialWait = body['initialWait'].text;
+    const totalExperimentTime = body['totalExperimentTime'].text;
     const currentTime = new Date().toISOString()
     const experimentName = `turbidity_${turbidity}_concentration_${conc}_numExperiments_${numExperiments}_time_${currentTime}`;
 
@@ -11,6 +13,8 @@ let setCurrentExperiment = (body) => {
         turbidity: turbidity,
         concentration: conc,
         numExperiments: numExperiments,
+        initialWait: initialWait,
+        totalExperimentTime: totalExperimentTime,
         time: currentTime,
         experimentName: experimentName,
     }

@@ -5,27 +5,25 @@
 void dispatchDataCollection(String experiment, aJsonObject * (&colorBuf)[MAX_ARRAY_SIZE], aJsonObject * (&turbidityBuf)[MAX_ARRAY_SIZE], aJsonObject * (&electrochemBuf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
   //Collect the data, and post if WiFi is available
   int timeToWait = ceil(float(TOTAL_EXPERIMENT_TIME) / numExperiments);
-  
+
   for (int i = 0; i < numExperiments; ++i) {
     Serial.println("color");
-    performMainDataCollection(experiment, "color", colorBuf, 1, tcs, ads, takeColorMeasurement);
+    performMainDataCollection(experiment, "color", colorBuf, i, tcs, ads, takeColorMeasurement);
     Serial.println("turbidity");
-    performMainDataCollection(experiment, "turbidity", turbidityBuf, 1, tcs, ads, takeTurbidityMeasurement);
+    performMainDataCollection(experiment, "turbidity", turbidityBuf, i, tcs, ads, takeTurbidityMeasurement);
     Serial.println("electrochemical");
-    performMainDataCollection(experiment, "electrochemical", electrochemBuf, 1, tcs, ads, takeElectrochemicalMeasurement);
+    performMainDataCollection(experiment, "electrochemical", electrochemBuf, i, tcs, ads, takeElectrochemicalMeasurement);
     delay(timeToWait);
   }
 }
 
-void performMainDataCollection(String experiment, String type, aJsonObject * (&buf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
+void performMainDataCollection(String experiment, String type, aJsonObject * (&buf)[MAX_ARRAY_SIZE], int experimentIndex, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
   int bufFRONT = 0;
   int bufEND = -1;
 
-  for (int i = 0; i < numExperiments; ++i) {
-    aJsonObject* meas = collect(tcs, ads);
-    buf[++bufEND] = meas;
-    attemptToPostUnsavedMeasurements(experiment, type, buf, bufFRONT, bufEND, false);
-  }
+  aJsonObject* meas = collect(tcs, ads);
+  buf[experimentIndex] = meas;
+//  attemptToPostUnsavedMeasurements(experiment, type, buf, bufFRONT, bufEND, false);
 }
 
 void resetIndices(int& front, int fval, int& back, int bval) {

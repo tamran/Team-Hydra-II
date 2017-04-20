@@ -9,7 +9,7 @@
 #define ADC_ID 12
 
 #define INITIAL_WAIT 2 * 60 * 1000
-#define TOTAL_EXPERIMENT_TIME 7 * 60 * 1000
+#define TOTAL_EXPERIMENT_TIME 60 * 1000
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 /* Adafruit_TCS34725 tcs = Adafruit_TCS34725();

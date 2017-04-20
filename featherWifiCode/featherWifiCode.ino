@@ -9,7 +9,7 @@
 #define COLOR_SENSOR_ID_1 14
 #define COLOR_SENSOR_ID_2 16
 #define ADC_ID 12
-#define SD_ID 4
+#define SD_ID 15
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 /* Adafruit_TCS34725 tcs = Adafruit_TCS34725();

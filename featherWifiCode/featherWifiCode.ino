@@ -5,7 +5,7 @@
 
 #define LED_ID 13
 #define COLOR_SENSOR_ID_1 14
-#define COLOR_SENSOR_ID_2 15
+#define COLOR_SENSOR_ID_2 16
 #define ADC_ID 12
 
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */

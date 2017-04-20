@@ -8,6 +8,9 @@
 #define COLOR_SENSOR_ID_2 16
 #define ADC_ID 12
 
+#define INITIAL_WAIT 2 * 60 * 1000
+#define TOTAL_EXPERIMENT_TIME 7 * 60 * 1000
+
 /* Initialise with default values (int time = 2.4ms, gain = 1x) */
 /* Adafruit_TCS34725 tcs = Adafruit_TCS34725();
   /* Initialise with specific int time and gain values */
@@ -40,7 +43,7 @@ void loop(void) {
     createTrial(experiment);
     Serial.println("Trial created");
     Serial.println("Pausing...");
-    //delay(10000);
+    delay(INITIAL_WAIT);
     Serial.println("Starting to collect data");
     digitalWrite(LED_ID, HIGH);
     delay(500);

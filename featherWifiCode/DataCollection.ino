@@ -2,6 +2,21 @@
 
 #define MAX_ARRAY_SIZE 30
 
+void dispatchDataCollection(String experiment, aJsonObject * (&colorBuf)[MAX_ARRAY_SIZE], aJsonObject * (&turbidityBuf)[MAX_ARRAY_SIZE], aJsonObject * (&electrochemBuf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads) {
+  //Collect the data, and post if WiFi is available
+  int timeToWait = ceil(float(TOTAL_EXPERIMENT_TIME) / numExperiments);
+  
+  for (int i = 0; i < numExperiments; ++i) {
+    Serial.println("color");
+    performMainDataCollection(experiment, "color", colorBuf, 1, tcs, ads, takeColorMeasurement);
+    Serial.println("turbidity");
+    performMainDataCollection(experiment, "turbidity", turbidityBuf, 1, tcs, ads, takeTurbidityMeasurement);
+    Serial.println("electrochemical");
+    performMainDataCollection(experiment, "electrochemical", electrochemBuf, 1, tcs, ads, takeElectrochemicalMeasurement);
+    delay(timeToWait);
+  }
+}
+
 void performMainDataCollection(String experiment, String type, aJsonObject * (&buf)[MAX_ARRAY_SIZE], int numExperiments, Adafruit_TCS34725 tcs, Adafruit_ADS1115 ads, aJsonObject * (*collect)(Adafruit_TCS34725, Adafruit_ADS1115)) {
   int bufFRONT = 0;
   int bufEND = -1;
@@ -28,14 +43,7 @@ void collectData(String experiment, int numExperiments, Adafruit_TCS34725 tcs, A
 
   numExperiments = min(numExperiments, MAX_ARRAY_SIZE);
 
-  //Collect the data, and post if WiFi is available
-  Serial.println("color");
-  performMainDataCollection(experiment, "color", colorBuf, numExperiments, tcs, ads, takeColorMeasurement);
-  Serial.println("turbidity");
-  performMainDataCollection(experiment, "turbidity", turbidityBuf, numExperiments, tcs, ads, takeTurbidityMeasurement);
-  Serial.println("electrochemical");
-  performMainDataCollection(experiment, "electrochemical", electrochemBuf, numExperiments, tcs, ads, takeElectrochemicalMeasurement);
-
+  dispatchDataCollection(experiment, colorBuf, turbidityBuf, electrochemBuf, numExperiments, tcs, ads);
 
   Serial.println("Waiting to send data");
   int beginOfArray, endOfArray;

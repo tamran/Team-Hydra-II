@@ -46,7 +46,7 @@ aJsonObject* takeElectrochemicalMeasurement(Adafruit_TCS34725 tcs, Adafruit_ADS1
 
   int16_t adc0 = ads.readADC_SingleEnded(0);
   int16_t adc1 = ads.readADC_SingleEnded(1);
-  int16_t adc2 = ads.readADC_SingleEnded(2);
+  int16_t adc2 = ads.readADC_SingleEnded(3);
   float aluminumVolatge = (adc0 * mVOLTS_PER_BIT) / 1000;
   float stainlessSteelVolatge = (adc1 * mVOLTS_PER_BIT) / 1000;
   float titaniumVolatge = (adc2 * mVOLTS_PER_BIT) / 1000;

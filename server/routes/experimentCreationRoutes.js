@@ -1,5 +1,3 @@
-import { isAlive } from '../socket_io_connector';
-
 let experimentData = {};
 
 let setCurrentExperiment = (body) => {
@@ -35,7 +33,6 @@ let clearExperimentData = () => {
 let experimentCreation = (app) => {
     app.route('/api/newExperiment')
         .get((req,res) => {
-            isAlive();
             res.send(getExperimentData());
         })
         .post((req,res) => {

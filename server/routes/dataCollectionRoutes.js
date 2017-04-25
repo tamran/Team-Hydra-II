@@ -1,5 +1,5 @@
 import { getAllTrials, getTrial, createTrial, saveMeasurementDispatcher  } from '../db/mongo_connector';
-import { emitter } from '../socket_io_connector';
+import { emitter, isAlive } from '../socket_io_connector';
 
 let getCurrentTime = () => {
     let date = new Date().toString(); 
@@ -25,6 +25,7 @@ let dataCollection = (app) => {
         })
         .post((req,res) => {
             createTrial(req.params.trialName)
+            isAlive();
             res.end();
         })
     app.route('/api/measurement/color/:trialName')

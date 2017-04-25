@@ -9,6 +9,11 @@ export const emitter = (measurement, type) => {
     });
 }
 
+export const isAlive = () => {
+    connections.forEach( connectedSocket => {
+        connectedSocket.emit('newTrialRequested');
+    });
+}
 
 export const connectIO = (server) => {
     let socketServer = io(server)

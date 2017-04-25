@@ -1,5 +1,5 @@
 import ActionTypes from '../actions/actionTypes';
-import { updateLastMeasurement } from '../actions/actions';
+import { updateLastMeasurement, updateIsAlive } from '../actions/actions';
 import io from 'socket.io-client';
 
 var socket = null;
@@ -22,5 +22,9 @@ export default function(store) {
         console.log(measurement)
         console.log(type)
         store.dispatch(updateLastMeasurement(measurement, type))
+    })
+    socket.on('newTrialRequested', () => {
+        console.log('new trial request')
+        store.dispatch(updateIsAlive())
     })
 }

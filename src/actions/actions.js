@@ -49,6 +49,11 @@ export const updateLastMeasurement = (measurement, measType) => ({
     measurement: measurement,
 })
 
+export const updateIsAlive = () => ({
+    type: ActionTypes.UPDATE_IS_ALIVE,
+    time: new Date(),
+})
+
 export const requestUpdateFolder = () => ({
     type: ActionTypes.UPDATE_FOLDER_REQUEST,
 })

@@ -4,7 +4,7 @@
 [Click Here!](https://team-hydra-ii.herokuapp.com/)
 
 ## The simplified communication model of this application is:
-![Application Architecture](https://raw.github.com/tamran/Team-Hydra-II/master/diagrams/AppArchitecture.png)
+![Application Architecture](https://raw.github.com/tamran/Team-Hydra-II/master/diagrams/UpdatedAppArchitecture.png)
 
 ## Currently available features on live version:
 

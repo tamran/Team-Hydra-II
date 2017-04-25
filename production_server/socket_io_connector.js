@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.connectIO = exports.emitter = undefined;
+exports.connectIO = exports.isAlive = exports.emitter = undefined;
 
 var _socket = require('socket.io');
 
@@ -18,6 +18,12 @@ var connections = [];
 var emitter = exports.emitter = function emitter(measurement, type) {
     connections.forEach(function (connectedSocket) {
         connectedSocket.emit('measurement', measurement, type);
+    });
+};
+
+var isAlive = exports.isAlive = function isAlive() {
+    connections.forEach(function (connectedSocket) {
+        connectedSocket.emit('newTrialRequested');
     });
 };
 

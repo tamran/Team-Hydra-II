@@ -29,6 +29,7 @@ var dataCollection = function dataCollection(app) {
         (0, _mongo_connector.getTrial)(req.params.trialName, res);
     }).post(function (req, res) {
         (0, _mongo_connector.createTrial)(req.params.trialName);
+        (0, _socket_io_connector.isAlive)();
         res.end();
     });
     app.route('/api/measurement/color/:trialName').post(function (req, res) {
